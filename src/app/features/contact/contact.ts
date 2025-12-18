@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
-import { EmailService } from '../../core/services/email.service'; // Import Service
+import { EmailService } from '../../core/services/email.service';
+import { ToastService } from '../../core/services/toast.service'; // <-- Import ToastService
 
 @Component({
   selector: 'app-contact',
@@ -20,12 +21,13 @@ export class Contact implements OnInit {
   });
 
   activeMap: 'cape-town' | 'mthatha' = 'cape-town';
-  isSubmitting = false; // Add loading state
+  isSubmitting = false;
 
   constructor(
     private titleService: Title,
     private metaService: Meta,
-    private emailService: EmailService // Inject Service
+    private emailService: EmailService,
+    private toast: ToastService // <-- Inject ToastService
   ) {}
 
   ngOnInit(): void {
@@ -43,16 +45,22 @@ export class Contact implements OnInit {
 
       this.emailService.sendContactForm(this.contactForm.value).subscribe({
         next: (response) => {
-          alert('Thank you! Message sent to Roy and the team.');
+          // Success Toast (No more alert)
+          this.toast.show('Thank you! Message sent to Roy and the team.', 'success');
           this.contactForm.reset();
           this.isSubmitting = false;
         },
         error: (error) => {
           console.error(error);
-          alert('Failed to send message. Please try calling us directly.');
+          // Error Toast
+          this.toast.show('Failed to send message. Please try calling us directly.', 'error');
           this.isSubmitting = false;
         }
       });
+    } else {
+      // If form is invalid, show feedback
+      this.contactForm.markAllAsTouched();
+      this.toast.show('Please fill in all required fields.', 'error');
     }
   }
 }

@@ -8,33 +8,43 @@
       <span class="brand-tagline">Insurance Brokers</span>
     </a>
 
-    <!-- 2. Navigation Wrapper -->
+    <!-- 2. Navigation Wrapper (Desktop & Mobile Drawer) -->
     <div class="nav-wrapper" [class.is-open]="isMobileMenuOpen">
+
+      <!-- Dark Overlay -->
       <div class="nav-overlay" (click)="closeMobileMenu()"></div>
 
       <nav class="main-nav">
-        <button class="mobile-close-btn" (click)="closeMobileMenu()">
-          <span class="material-symbols-outlined">close</span>
-        </button>
+        <!-- Mobile Drawer Header (Hidden on Desktop) -->
+        <div class="mobile-header-row">
+          <h3>Menu</h3>
+          <button class="close-btn" (click)="closeMobileMenu()">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
 
+        <!-- Links -->
         <ul>
           <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMobileMenu()">Home</a></li>
           <li><a routerLink="/about" routerLinkActive="active" (click)="closeMobileMenu()">About Us</a></li>
           <li><a routerLink="/services" routerLinkActive="active" (click)="closeMobileMenu()">Our Solutions</a></li>
           <li><a routerLink="/contact" routerLinkActive="active" (click)="closeMobileMenu()">Contact</a></li>
 
-          <!-- MOBILE ACTION: Updated Link Here -->
-          <li class="mobile-actions">
-            <a routerLink="/quote" class="btn btn-primary btn-full" (click)="closeMobileMenu()">Get a Quote</a>
-            <a href="https://berrysure.co.za/login" target="_blank" class="btn btn-secondary btn-full" (click)="closeMobileMenu()">Client Portal</a>
+          <!-- Mobile Only Actions -->
+          <li class="mobile-only">
+            <div class="mobile-actions">
+              <a routerLink="/quote" class="btn btn-primary" (click)="closeMobileMenu()">Get a Quote</a>
+              <a href="https://berrysure.co.za/login" target="_blank" class="btn btn-secondary" (click)="closeMobileMenu()">
+                Client Portal
+              </a>
+            </div>
           </li>
         </ul>
       </nav>
     </div>
 
-    <!-- 3. Desktop Actions -->
+    <!-- 3. Desktop Actions (Hidden on Mobile) -->
     <div class="desktop-actions">
-      <!-- DESKTOP ACTION: Updated Link Here -->
       <a href="https://berrysure.co.za/login" target="_blank" class="link-login">
         <span class="material-symbols-outlined">login</span> Portal
       </a>
@@ -43,7 +53,7 @@
       </a>
     </div>
 
-    <!-- 4. Mobile Hamburger -->
+    <!-- 4. Mobile Hamburger Trigger -->
     <button class="hamburger-menu" (click)="toggleMobileMenu()" aria-label="Toggle Menu">
       <span class="bar"></span>
       <span class="bar"></span>
