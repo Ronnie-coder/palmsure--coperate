@@ -1,19 +1,38 @@
-<!-- src/app/features/quote/quote.html -->
 <main class="quote-page section-padding">
-  <div class="container">
+  <!-- Brand Gradient Background -->
+  <div class="page-background-gradient"></div>
+
+  <div class="container relative-z">
     <div class="quote-tool-wrapper">
+
+      <!-- HEADER -->
       <header class="quote-header">
         <h1>Get Your Personalized Quote</h1>
-        <p *ngIf="currentStep < 4">Follow the steps below to get your personalized insurance estimate.</p>
-        <p *ngIf="currentStep === 4">Thank you for your submission!</p>
+
+        <!-- Progress Bar (Steps 1-3 only) -->
+        <div class="progress-container" *ngIf="currentStep < 4">
+          <div class="step-indicator" [class.active]="currentStep >= 1">1</div>
+          <div class="step-line" [class.active]="currentStep >= 2"></div>
+          <div class="step-indicator" [class.active]="currentStep >= 2">2</div>
+          <div class="step-line" [class.active]="currentStep >= 3"></div>
+          <div class="step-indicator" [class.active]="currentStep >= 3">3</div>
+        </div>
+
+        <p class="header-desc" *ngIf="currentStep === 1">Step 1: What can we help you insure?</p>
+        <p class="header-desc" *ngIf="currentStep === 2">Step 2: Tell us about yourself</p>
+        <p class="header-desc" *ngIf="currentStep === 3">Step 3: Specific Details</p>
+        <p class="header-desc" *ngIf="currentStep === 4">Thank you for your submission!</p>
       </header>
 
+      <!-- CONTENT SWITCHER -->
       <div [ngSwitch]="currentStep">
-        <!-- Step 1 -->
+
+        <!-- STEP 1: TYPE SELECTION -->
         <div *ngSwitchCase="1" class="quote-step-content">
-          <h2 class="step-title">Step 1: What can we help you insure?</h2>
           <div class="selection-grid">
-            <div *ngFor="let type of insuranceTypes" class="selection-card" tabindex="0" [class.selected]="type.id === selectedInsuranceType" (click)="selectInsuranceType(type.id)">
+            <div *ngFor="let type of insuranceTypes" class="selection-card" tabindex="0"
+                 [class.selected]="type.id === selectedInsuranceType"
+                 (click)="selectInsuranceType(type.id)">
               <span class="material-symbols-outlined card-icon">{{ type.icon }}</span>
               <h3>{{ type.name }}</h3>
               <p>{{ type.description }}</p>
@@ -21,50 +40,117 @@
           </div>
         </div>
 
-        <!-- Step 2 -->
+        <!-- STEP 2: PERSONAL INFO -->
         <div *ngSwitchCase="2" class="quote-step-content">
-          <h2 class="step-title">Step 2: Tell us about yourself</h2>
           <form [formGroup]="personalDetailsForm" novalidate>
             <div class="form-grid">
-              <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" formControlName="firstName" [class.is-invalid]="p['firstName'].invalid && p['firstName'].touched"><div *ngIf="p['firstName'].invalid && p['firstName'].touched" class="validation-message">First name is required.</div></div>
-              <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" formControlName="lastName" [class.is-invalid]="p['lastName'].invalid && p['lastName'].touched"><div *ngIf="p['lastName'].invalid && p['lastName'].touched" class="validation-message">Last name is required.</div></div>
-              <div class="form-group full-width"><label for="email">Email Address</label><input type="email" id="email" formControlName="email" [class.is-invalid]="p['email'].invalid && p['email'].touched"><div *ngIf="p['email'].touched && p['email'].errors" class="validation-message"><span *ngIf="p['email'].errors['required']">Email is required.</span><span *ngIf="p['email'].errors['email']">Please enter a valid email address.</span></div></div>
-              <div class="form-group full-width"><label for="phone">Phone Number</label><input type="tel" id="phone" formControlName="phone" [class.is-invalid]="p['phone'].invalid && p['phone'].touched"><div *ngIf="p['phone'].invalid && p['phone'].touched" class="validation-message">Phone number is required.</div></div>
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" formControlName="firstName" [class.is-invalid]="p['firstName'].invalid && p['firstName'].touched">
+                <div *ngIf="p['firstName'].invalid && p['firstName'].touched" class="validation-message">Required.</div>
+              </div>
+
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" formControlName="lastName" [class.is-invalid]="p['lastName'].invalid && p['lastName'].touched">
+                <div *ngIf="p['lastName'].invalid && p['lastName'].touched" class="validation-message">Required.</div>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" formControlName="email" [class.is-invalid]="p['email'].invalid && p['email'].touched">
+                <div *ngIf="p['email'].touched && p['email'].errors" class="validation-message">Valid email required.</div>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" formControlName="phone" [class.is-invalid]="p['phone'].invalid && p['phone'].touched">
+                <div *ngIf="p['phone'].invalid && p['phone'].touched" class="validation-message">Phone number required.</div>
+              </div>
             </div>
           </form>
         </div>
 
-        <!-- Step 3 -->
+        <!-- STEP 3: SPECIFICS -->
         <div *ngSwitchCase="3" class="quote-step-content">
           <div [ngSwitch]="selectedInsuranceType">
+
+            <!-- Property Form -->
             <form *ngSwitchCase="'property'" [formGroup]="propertyDetailsForm" novalidate>
-              <h2 class="step-title">Step 3: Property Details</h2>
-              <div class="form-grid"><div class="form-group full-width"><label for="propertyAddress">Property Address</label><input type="text" id="propertyAddress" formControlName="propertyAddress" [class.is-invalid]="prop['propertyAddress'].invalid && prop['propertyAddress'].touched"><div *ngIf="prop['propertyAddress'].invalid && prop['propertyAddress'].touched" class="validation-message">Address is required.</div></div><div class="form-group full-width"><label for="propertyValue">Estimated Value (R)</label><input type="number" id="propertyValue" formControlName="propertyValue" [class.is-invalid]="prop['propertyValue'].invalid && prop['propertyValue'].touched"><div *ngIf="prop['propertyValue'].invalid && prop['propertyValue'].touched" class="validation-message">A valid estimated value is required.</div></div></div>
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label for="propertyAddress">Property Address</label>
+                  <input type="text" id="propertyAddress" formControlName="propertyAddress" [class.is-invalid]="prop['propertyAddress'].invalid && prop['propertyAddress'].touched">
+                </div>
+                <div class="form-group full-width">
+                  <label for="propertyValue">Estimated Value (R)</label>
+                  <input type="number" id="propertyValue" formControlName="propertyValue" [class.is-invalid]="prop['propertyValue'].invalid && prop['propertyValue'].touched">
+                </div>
+              </div>
             </form>
+
+            <!-- Vehicle Form -->
             <form *ngSwitchCase="'vehicle'" [formGroup]="vehicleDetailsForm" novalidate>
-              <h2 class="step-title">Step 3: Vehicle Details</h2>
-              <div class="form-grid"><div class="form-group"><label for="vehicleMake">Make</label><input type="text" id="vehicleMake" formControlName="vehicleMake" [class.is-invalid]="veh['vehicleMake'].invalid && veh['vehicleMake'].touched"><div *ngIf="veh['vehicleMake'].invalid && veh['vehicleMake'].touched" class="validation-message">Make is required.</div></div><div class="form-group"><label for="vehicleModel">Model</label><input type="text" id="vehicleModel" formControlName="vehicleModel" [class.is-invalid]="veh['vehicleModel'].invalid && veh['vehicleModel'].touched"><div *ngIf="veh['vehicleModel'].invalid && veh['vehicleModel'].touched" class="validation-message">Model is required.</div></div><div class="form-group full-width"><label for="vehicleYear">Year</label><input type="number" id="vehicleYear" formControlName="vehicleYear" [class.is-invalid]="veh['vehicleYear'].invalid && veh['vehicleYear'].touched"><div *ngIf="veh['vehicleYear'].invalid && veh['vehicleYear'].touched" class="validation-message">A valid year is required.</div></div></div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="vehicleMake">Make</label>
+                  <input type="text" id="vehicleMake" formControlName="vehicleMake" [class.is-invalid]="veh['vehicleMake'].invalid && veh['vehicleMake'].touched">
+                </div>
+                <div class="form-group">
+                  <label for="vehicleModel">Model</label>
+                  <input type="text" id="vehicleModel" formControlName="vehicleModel" [class.is-invalid]="veh['vehicleModel'].invalid && veh['vehicleModel'].touched">
+                </div>
+                <div class="form-group full-width">
+                  <label for="vehicleYear">Year</label>
+                  <input type="number" id="vehicleYear" formControlName="vehicleYear" [class.is-invalid]="veh['vehicleYear'].invalid && veh['vehicleYear'].touched">
+                </div>
+              </div>
             </form>
+
+            <!-- Business Form -->
             <form *ngSwitchCase="'business'" [formGroup]="businessDetailsForm" novalidate>
-              <h2 class="step-title">Step 3: Business Details</h2>
-              <div class="form-grid"><div class="form-group"><label for="businessName">Business Name</label><input type="text" id="businessName" formControlName="businessName" [class.is-invalid]="biz['businessName'].invalid && biz['businessName'].touched"><div *ngIf="biz['businessName'].invalid && biz['businessName'].touched" class="validation-message">Name is required.</div></div><div class="form-group"><label for="industry">Industry</label><input type="text" id="industry" formControlName="industry" [class.is-invalid]="biz['industry'].invalid && biz['industry'].touched"><div *ngIf="biz['industry'].invalid && biz['industry'].touched" class="validation-message">Industry is required.</div></div><div class="form-group full-width"><label for="numEmployees">Number of Employees</label><input type="number" id="numEmployees" formControlName="numEmployees" [class.is-invalid]="biz['numEmployees'].invalid && biz['numEmployees'].touched"><div *ngIf="biz['numEmployees'].invalid && biz['numEmployees'].touched" class="validation-message">Enter a valid number of employees.</div></div></div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="businessName">Business Name</label>
+                  <input type="text" id="businessName" formControlName="businessName" [class.is-invalid]="biz['businessName'].invalid && biz['businessName'].touched">
+                </div>
+                <div class="form-group">
+                  <label for="industry">Industry</label>
+                  <input type="text" id="industry" formControlName="industry" [class.is-invalid]="biz['industry'].invalid && biz['industry'].touched">
+                </div>
+                <div class="form-group full-width">
+                  <label for="numEmployees">Number of Employees</label>
+                  <input type="number" id="numEmployees" formControlName="numEmployees" [class.is-invalid]="biz['numEmployees'].invalid && biz['numEmployees'].touched">
+                </div>
+              </div>
             </form>
           </div>
         </div>
 
-        <!-- Step 4 -->
+        <!-- STEP 4: SUCCESS -->
         <div *ngSwitchCase="4" class="quote-step-content success-message">
-          <h3>Your quote request has been received!</h3>
+          <span class="material-symbols-outlined success-icon">check_circle</span>
+          <h3>Request Received!</h3>
           <p>One of our expert brokers will review your information and contact you shortly. We appreciate your interest in Palmsure Insurance.</p>
           <a routerLink="/" class="btn btn-secondary">Return to Homepage</a>
         </div>
       </div>
 
-      <!-- Footer -->
+      <!-- FOOTER ACTIONS -->
       <footer class="quote-footer" *ngIf="currentStep < 4">
         <button *ngIf="currentStep > 1" type="button" class="btn btn-secondary" (click)="goToPreviousStep()">Back</button>
-        <button *ngIf="currentStep < 3" class="btn btn-primary" [disabled]="(currentStep === 1 && !selectedInsuranceType) || (currentStep === 2 && personalDetailsForm.invalid)" (click)="goToNextStep()">Next Step</button>
-        <button *ngIf="currentStep === 3" type="button" class="btn btn-primary" (click)="submitQuote()">Get My Quote</button>
+
+        <div class="spacer" style="flex: 1"></div>
+
+        <button *ngIf="currentStep < 3" class="btn btn-primary"
+                [disabled]="(currentStep === 1 && !selectedInsuranceType) || (currentStep === 2 && personalDetailsForm.invalid)"
+                (click)="goToNextStep()">
+          Next Step
+        </button>
+
+        <button *ngIf="currentStep === 3" type="button" class="btn btn-primary" (click)="submitQuote()">
+          Get My Quote
+        </button>
       </footer>
     </div>
   </div>

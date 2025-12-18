@@ -1,4 +1,3 @@
-/* src/app/features/about/about.ts */
 import { Component, AfterViewInit, OnDestroy, ElementRef, ViewChild, ViewChildren, QueryList, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
@@ -7,7 +6,8 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './about.html',
-  styleUrl: './about.scss'
+  // FIXED: Using 'styleUrls' (plural) ensures compatibility
+  styleUrls: ['./about.scss']
 })
 export class About implements AfterViewInit, OnDestroy {
   @ViewChild('metricsSection') metricsSection!: ElementRef<HTMLElement>;
@@ -24,9 +24,7 @@ export class About implements AfterViewInit, OnDestroy {
   }
 
   private initializeObserver(): void {
-    const options = {
-      threshold: 0.5
-    };
+    const options = { threshold: 0.5 };
 
     this.observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -44,29 +42,33 @@ export class About implements AfterViewInit, OnDestroy {
   private animateMetricNumbers(): void {
     this.metricValues.forEach(elRef => {
       const element = elRef.nativeElement;
-      const finalValueText = element.textContent || '0';
-      const suffix = finalValueText.replace(/[\d,.]/g, '');
-      const endValue = parseFloat(finalValueText.replace(/[^\d.]/g, ''));
+      const originalText = element.textContent || '0';
+      const targetValue = parseFloat(originalText.replace(/[^0-9.]/g, ''));
+      const suffix = originalText.replace(/[0-9.]/g, '');
 
-      this.countUp(element, endValue, suffix);
+      this.countUp(element, targetValue, suffix);
     });
   }
 
-  private countUp(element: HTMLElement, end: number, suffix: string): void {
-    let start = 0;
+  private countUp(element: HTMLElement, target: number, suffix: string): void {
     const duration = 2000;
-    const frameRate = 1000 / 60;
-    const totalFrames = Math.round(duration / frameRate);
-    const increment = end / totalFrames;
+    const startTimestamp = performance.now();
 
-    const counter = setInterval(() => {
-      start += increment;
-      if (start >= end) {
-        start = end;
-        clearInterval(counter);
+    const step = (timestamp: number) => {
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+
+      const current = Math.floor(easeOut * target);
+      element.textContent = current.toLocaleString() + suffix;
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        element.textContent = target.toLocaleString() + suffix;
       }
-      element.textContent = Math.floor(start).toLocaleString() + suffix;
-    }, frameRate);
+    };
+
+    window.requestAnimationFrame(step);
   }
 
   ngOnDestroy(): void {

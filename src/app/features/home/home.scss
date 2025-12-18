@@ -1,4 +1,3 @@
-/* src/app/features/home/home.scss */
 @use '../../../assets/scss/variables' as v;
 @use 'sass:color';
 
@@ -10,39 +9,94 @@
 
 :host { display: block; }
 .section-padding { padding: 5rem 0; }
+
 .card {
-  background-color: v.$white; border: 1px solid v.$border-color; border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(v.$primary-color, 0.05); padding: 2rem;
+  background-color: v.$white;
+  border: 1px solid v.$border-color;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(v.$primary-color, 0.05);
+  padding: 2rem;
 }
-.section-title { text-align: center; font-size: 2.5rem; font-weight: 700; color: v.$primary-color; margin-bottom: 3rem; }
-.section-subtitle { text-align: center; font-size: 1.2rem; color: v.$text-color-light; margin-top: -2rem; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: v.$primary-color;
+  margin-bottom: 3rem;
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: v.$text-color-light;
+  margin-top: -2rem;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 // --- 1. Hero Section ---
 .hero-section {
-  position: relative; background-color: v.$gray-lightest; padding: 8rem 0; text-align: center; overflow: hidden;
+  position: relative;
+  background-color: v.$gray-lightest;
+  padding: 8rem 0;
+  text-align: center;
+  overflow: hidden;
+
   .hero-background-gradient {
-    position: absolute; inset: 0;
-    // FIXED: Replaced lighten() with color.adjust()
-    background: linear-gradient(60deg, v.$gray-lightest, color.adjust(v.$brand-off-white, $lightness: 2%), v.$gray-lightest);
+    position: absolute;
+    inset: 0;
+    // Uses brand off-white/gray for a subtle corporate gradient
+    background: linear-gradient(60deg, v.$gray-lightest, #ececec, v.$gray-lightest);
     background-size: 200% 200%;
     animation: animatedGradient 18s ease infinite;
     z-index: 1;
   }
+
   .container { position: relative; z-index: 2; }
+
   .hero-content {
-    max-width: 800px; margin: 0 auto;
+    max-width: 800px;
+    margin: 0 auto;
+
     & > * { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
-    h1 { animation-delay: 0.2s; font-size: 3.5rem; font-weight: 800; color: v.$primary-color; line-height: 1.2; margin-bottom: 1.5rem; }
-    .subtitle { animation-delay: 0.4s; font-size: 1.25rem; color: v.$text-color-light; margin-bottom: 2.5rem; }
-    .hero-cta-group { animation-delay: 0.6s; display: flex; justify-content: center; gap: 1rem; }
+
+    h1 {
+      animation-delay: 0.2s;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: v.$primary-color;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .subtitle {
+      animation-delay: 0.4s;
+      font-size: 1.25rem;
+      color: v.$text-color-light;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta-group {
+      animation-delay: 0.6s;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
   }
 }
 
 // --- 2. Credibility Bar ---
 .credibility-bar {
-  background-color: color.adjust(v.$primary-color, $blackness: 5%); color: rgba(v.$white, 0.8);
-  padding: 1rem 0; font-weight: 500;
+  background-color: #0f2a24; // Very dark version of brand green
+  color: rgba(v.$white, 0.8);
+  padding: 1rem 0;
+  font-weight: 500;
+
   .credibility-content { display: flex; justify-content: space-between; align-items: center; }
+
   .credibility-text {
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     &.hidden { opacity: 0; transform: translateY(10px); }
@@ -52,13 +106,12 @@
 
 // --- 3. Stats Section ---
 .stats-section {
-  // Styles for elements that will be animated
   .card, .impact-container h3 {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
-  // The trigger class
+
   &.is-visible {
     .card, .impact-container h3 { opacity: 1; transform: translateY(0); }
     .impact-card:nth-of-type(1) { transition-delay: 0.2s; }
@@ -66,13 +119,17 @@
     .impact-card:nth-of-type(3) { transition-delay: 0.4s; }
   }
 }
+
 .stats-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start; }
 .chart-container h3, .impact-container h3 { font-size: 1.5rem; color: v.$primary-color; margin-top: 0; margin-bottom: 1.5rem; }
 .chart-wrapper { position: relative; height: 350px; }
+
 .impact-grid { display: grid; gap: 1.5rem; }
 .impact-card {
   display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; padding: 1.5rem;
+
   &:hover { transform: translateY(-5px) !important; box-shadow: 0 8px 20px rgba(v.$primary-color, 0.1); }
+
   .impact-icon { font-size: 2.5rem; color: v.$secondary-color; }
   .impact-value { font-size: 2.75rem; font-weight: 700; color: v.$primary-color; line-height: 1.1; }
   .impact-title { font-weight: 600; color: v.$text-color; margin-bottom: 0.25rem; }
@@ -82,31 +139,44 @@
 // --- 4. Solutions Section ---
 .solutions-section { background-color: v.$gray-lightest; }
 .solutions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
 .solution-card {
-  // FIXED: No longer inherits opacity: 0, so it will be visible by default.
   @extend .card;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+
   .card-icon { font-size: 3rem; color: v.$secondary-color; margin-bottom: 1.5rem; }
+
   &:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(v.$primary-color, 0.1); }
+
   h4 { font-size: 1.5rem; color: v.$secondary-color; margin: 0 0 1rem 0; }
   .learn-more { font-weight: 600; color: v.$secondary-color; text-decoration: none; &:hover { text-decoration: underline; } }
 }
 
-// --- 5. Features Section (Why Clients Choose Us) ---
+// --- 5. Features Section ---
 .features-section { background-color: v.$white; }
 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
 .feature-card {
-  @extend .card; text-align: center; padding: 2.5rem 1.5rem; background-color: v.$gray-lightest; border: 1px solid transparent;
-  // This section's animation logic is self-contained and correct
-  opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+  @extend .card;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background-color: v.$gray-lightest;
+  border: 1px solid transparent;
+
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+
   @for $i from 1 through 6 {
     &:nth-child(#{$i}).is-visible { transition-delay: #{$i * 0.1}s; }
   }
+
   &.is-visible { opacity: 1; transform: translateY(0); }
+
   .feature-icon { font-size: 2.75rem; color: v.$secondary-color; margin-bottom: 1.5rem; transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
   h4 { font-size: 1.25rem; color: v.$primary-color; margin: 0 0 0.75rem 0; }
   p { margin: 0; color: v.$text-color-light; line-height: 1.6; }
+
   &:hover {
     transform: translateY(-5px) !important; border-color: v.$border-color; box-shadow: 0 8px 20px rgba(v.$primary-color, 0.08);
     .feature-icon { transform: scale(1.1) rotate(-5deg); }
@@ -117,6 +187,7 @@
 .partners-section { background-color: v.$gray-lightest; }
 .partners-grid {
   display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 3rem;
+
   .partner-logo {
     max-width: 150px;
     img {
@@ -127,14 +198,14 @@
   }
 }
 
-// --- 7. Testimonial Section ---
+// --- 7. Testimonial ---
 .testimonial-section {
   text-align: center; background-color: v.$primary-color; color: v.$white;
   blockquote { font-size: 1.75rem; font-style: italic; max-width: 800px; margin: 0 auto 1.5rem auto; border: none; padding: 0; line-height: 1.6; }
   cite { font-size: 1.1rem; font-style: normal; font-weight: 600; opacity: 0.8; }
 }
 
-// --- 8. Final CTA Section ---
+// --- 8. CTA Section ---
 .cta-section {
   background-color: v.$gray-lightest; text-align: center;
   h2 { @extend .section-title; }
@@ -145,6 +216,7 @@
 @media (max-width: 992px) {
   .stats-grid { grid-template-columns: 1fr; }
 }
+
 @media (max-width: 768px) {
   .hero-section h1 { font-size: 2.5rem; }
   .credibility-bar { display: none; }

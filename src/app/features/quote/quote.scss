@@ -1,181 +1,132 @@
-/* src/app/features/quote/quote.scss */
 @use '../../../assets/scss/variables' as v;
 @use 'sass:color';
+
+@keyframes animatedGradient {
+  0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
+}
 
 :host {
   display: block;
   background-color: v.$gray-lightest;
-  min-height: 80vh;
+  min-height: 100vh;
+  padding-top: 4rem; // Space for navbar
 }
+
+// Background Wrapper
+.quote-page {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 4rem;
+
+  .page-background-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, v.$gray-lightest, color.adjust(v.$primary-color, $lightness: 75%), v.$gray-lightest);
+    background-size: 200% 200%;
+    animation: animatedGradient 20s ease infinite;
+    z-index: 1;
+  }
+}
+
+.relative-z { position: relative; z-index: 2; }
 
 .quote-tool-wrapper {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 2rem auto;
   background-color: v.$white;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(v.$primary-color, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(v.$primary-color, 0.1);
   border: 1px solid v.$border-color;
   overflow: hidden;
 }
 
+// --- Header & Progress ---
 .quote-header {
   text-align: center;
-  padding: 2.5rem 2rem;
+  padding: 2.5rem 2rem 1.5rem 2rem;
   border-bottom: 1px solid v.$border-color;
+  background-color: #fbfbfb;
 
-  h1 {
-    margin: 0 0 0.5rem 0;
-    color: v.$primary-color;
+  h1 { margin: 0 0 1.5rem 0; color: v.$primary-color; font-size: 2rem; font-weight: 700; }
+
+  .header-desc { color: v.$text-color-light; margin-top: 1rem; font-weight: 500; }
+}
+
+.progress-container {
+  display: flex; align-items: center; justify-content: center; max-width: 300px; margin: 0 auto;
+
+  .step-indicator {
+    width: 35px; height: 35px; border-radius: 50%; background-color: v.$gray-light; color: v.$text-color-light;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; transition: all 0.3s ease;
+    &.active { background-color: v.$secondary-color; color: v.$white; }
   }
-  p {
-    margin: 0;
-    color: v.$text-color-light;
-    font-size: 1.1rem;
+
+  .step-line {
+    flex: 1; height: 3px; background-color: v.$gray-light; margin: 0 10px; transition: all 0.3s ease;
+    &.active { background-color: v.$secondary-color; }
   }
 }
 
-.quote-step-content {
-  padding: 2.5rem 2rem;
-}
+// --- Content & Cards ---
+.quote-step-content { padding: 3rem 2.5rem; }
 
-.step-title {
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: v.$text-color;
-  margin: 0 0 2.5rem 0;
-}
-
-.selection-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-}
+.selection-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
 
 .selection-card {
-  border: 2px solid v.$border-color;
-  border-radius: 8px;
-  padding: 2rem 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  border: 2px solid v.$border-color; border-radius: 12px; padding: 2rem 1rem; text-align: center; cursor: pointer;
+  transition: all 0.2s ease-in-out; background: v.$white;
 
-  &:hover {
-    border-color: v.$secondary-color;
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(v.$secondary-color, 0.15);
-  }
+  &:hover { border-color: v.$secondary-color; transform: translateY(-4px); box-shadow: 0 8px 16px rgba(v.$primary-color, 0.1); }
+  &.selected { border-color: v.$secondary-color; background-color: rgba(v.$secondary-color, 0.05); }
 
-  &.selected {
-    border-color: v.$secondary-color;
-    background-color: color.adjust(v.$secondary-color, $alpha: -0.9);
-  }
-
-  .card-icon {
-    font-size: 3rem; // 48px
-    color: v.$secondary-color;
-  }
-
-  h3 {
-    margin: 1rem 0 0.25rem 0;
-    color: v.$primary-color;
-  }
-
-  p {
-    margin: 0;
-    color: v.$text-color-light;
-    font-size: 0.9rem;
-  }
+  .card-icon { font-size: 3rem; color: v.$secondary-color; margin-bottom: 0.5rem; }
+  h3 { margin: 0.5rem 0 0.5rem 0; color: v.$primary-color; font-weight: 700; }
+  p { margin: 0; color: v.$text-color-light; font-size: 0.9rem; }
 }
 
-.quote-footer {
-  padding: 1.5rem 2rem;
-  background-color: v.$gray-lightest;
-  border-top: 1px solid v.$border-color;
-  text-align: right;
-
-  .btn:disabled {
-    background-color: v.$gray-light;
-    cursor: not-allowed;
-  }
-}
-
-// --- Step 2: Form Styles ---
+// --- Form Styles ---
 .form-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-  }
+  display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+  @media (min-width: 768px) { grid-template-columns: 1fr 1fr; }
 }
 
 .form-group {
-  &.full-width {
-    grid-column: 1 / -1;
-  }
+  &.full-width { grid-column: 1 / -1; }
 }
 
-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: v.$text-color;
+label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: v.$primary-color; }
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="number"] {
+  width: 100%; padding: 0.8rem 1rem; border: 1px solid v.$border-color; border-radius: 6px; font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s; box-sizing: border-box;
+  &:focus { outline: none; border-color: v.$secondary-color; box-shadow: 0 0 0 3px rgba(v.$secondary-color, 0.1); }
+  &.is-invalid { border-color: #dc3545; }
 }
 
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"] { // Added number for consistency
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid v.$border-color;
-  border-radius: 5px;
-  font-size: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  box-sizing: border-box;
+.validation-message { color: #dc3545; font-size: 0.8rem; margin-top: 0.5rem; }
 
-  &:focus {
-    outline: none;
-    border-color: v.$secondary-color;
-    box-shadow: 0 0 0 3px color.adjust(v.$secondary-color, $alpha: -0.8);
-  }
-
-  &.is-invalid {
-    border-color: #dc3545;
-  }
-}
-
-.validation-message {
-  color: #dc3545;
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
-}
-
-// --- Footer with Multiple Buttons ---
+// --- Footer ---
 .quote-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
+  padding: 1.5rem 2rem; background-color: #fbfbfb; border-top: 1px solid v.$border-color;
+  display: flex; align-items: center;
 
-  &.multi-button {
-    justify-content: space-between;
+  .btn {
+    padding: 0.8rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; border: none; transition: 0.2s;
+    &.btn-primary { background-color: v.$secondary-color; color: v.$white; &:hover { background-color: color.adjust(v.$secondary-color, $lightness: -5%); } }
+    &.btn-secondary { background-color: #e0e0e0; color: v.$text-color; &:hover { background-color: #d0d0d0; } }
+    &:disabled { background-color: v.$gray-light; color: #aaa; cursor: not-allowed; }
   }
 }
 
-// --- Step 3: Success Message ---
+// --- Success ---
 .success-message {
-  text-align: center;
-  padding: 3rem 2rem;
+  text-align: center; padding: 4rem 2rem;
 
-  h3 {
-    color: v.$secondary-color;
-    font-size: 1.75rem;
-  }
-  p {
-    max-width: 500px;
-    margin: 1rem auto 2rem auto;
-    line-height: 1.6;
+  .success-icon { font-size: 5rem; color: v.$secondary-color; margin-bottom: 1.5rem; }
+  h3 { color: v.$primary-color; font-size: 2rem; margin-bottom: 1rem; }
+  p { max-width: 500px; margin: 0 auto 2rem auto; line-height: 1.6; color: v.$text-color-light; }
+
+  .btn-secondary {
+    display: inline-block; padding: 0.9rem 2rem; background: v.$primary-color; color: white; text-decoration: none; border-radius: 6px;
+    &:hover { background: color.adjust(v.$primary-color, $lightness: 10%); }
   }
 }

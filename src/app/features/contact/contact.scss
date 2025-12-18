@@ -1,114 +1,128 @@
-/* src/app/features/contact/contact.scss */
 @use '../../../assets/scss/variables' as v;
 @use 'sass:color';
 
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes animatedGradient {
+  0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
+}
 
 :host { display: block; background-color: v.$background-color; color: v.$text-color; }
 .content-wrapper { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
 
-// Hero & Main Content sections remain the same...
+// --- Hero Section ---
 .hero-section {
-  background-color: v.$gray-lightest; text-align: center;
-  .content-wrapper {
-    & > * { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
-    h1 { animation-delay: 0.2s; } p.subtitle { animation-delay: 0.4s; }
+  position: relative; background-color: v.$gray-lightest; text-align: center; overflow: hidden; padding: 4rem 0;
+
+  .hero-background-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(60deg, v.$gray-lightest, #ececec, v.$gray-lightest);
+    background-size: 200% 200%;
+    animation: animatedGradient 18s ease infinite;
+    z-index: 1;
   }
-  h1 { font-size: 3.5rem; color: v.$primary-color; margin-bottom: 1rem; }
-  .subtitle { font-size: 1.25rem; color: v.$text-color-light; }
+
+  .content-wrapper { position: relative; z-index: 2; padding-top: 2rem; padding-bottom: 2rem; }
+
+  & > * { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
+
+  h1 { font-size: 3.5rem; color: v.$primary-color; margin-bottom: 1rem; font-weight: 800; animation-delay: 0.1s; }
+  .subtitle { font-size: 1.25rem; color: v.$text-color-light; animation-delay: 0.3s; }
 }
+
+// --- Contact Grid ---
 .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+
 .info-panel {
   h2 { font-size: 1.8rem; color: v.$primary-color; margin-bottom: 1.5rem; margin-top: 0; &.sub-heading { margin-top: 2.5rem; } }
   .info-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
   .material-symbols-outlined { font-size: 1.75rem; color: v.$secondary-color; margin-top: 0.25rem; }
   .info-item-content { display: flex; flex-direction: column; }
-  strong { color: v.$text-color; font-weight: 600; margin-bottom: 0.125rem; }
+  strong { color: v.$primary-color; font-weight: 700; margin-bottom: 0.25rem; }
   address, a { font-size: 1rem; line-height: 1.6; color: v.$text-color-light; font-style: normal; }
-  a { text-decoration: none; &:hover { text-decoration: underline; } }
+  a { text-decoration: none; transition: color 0.2s; &:hover { color: v.$secondary-color; text-decoration: underline; } }
 }
+
+// --- Form Panel ---
 .form-panel {
-  background-color: v.$white; padding: 2.5rem; border-radius: 8px; border: 1px solid v.$border-color;
-  box-shadow: 0 8px 24px rgba(v.$primary-color, 0.08);
+  background-color: v.$white; padding: 2.5rem; border-radius: 12px; border: 1px solid v.$border-color;
+  box-shadow: 0 15px 35px rgba(v.$primary-color, 0.05);
   h2 { font-size: 2rem; color: v.$primary-color; margin-top: 0; margin-bottom: 0.5rem; }
   > p { margin-bottom: 2rem; color: v.$text-color-light; }
 }
+
 .contact-form {
   .form-field { margin-bottom: 1.5rem; }
   label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: v.$primary-color; }
   input, textarea {
-    width: 100%; padding: 0.8rem 1rem; border: 1px solid v.$border-color; border-radius: 5px; font-size: 1rem;
+    width: 100%; padding: 0.8rem 1rem; border: 1px solid v.$border-color; border-radius: 6px; font-size: 1rem;
     font-family: inherit; transition: border-color 0.3s ease, box-shadow 0.3s ease;
     &:focus { outline: none; border-color: v.$secondary-color; box-shadow: 0 0 0 3px rgba(v.$secondary-color, 0.2); }
   }
   textarea { resize: vertical; }
 }
-.submit-button {
-  width: 100%; padding: 1rem; background-color: v.$secondary-color; color: v.$white; border: none; border-radius: 5px;
-  font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
-  &:hover:not(:disabled) { background-color: v.$primary-color; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(v.$primary-color, 0.2); }
-  &:disabled { background-color: v.$gray-light; cursor: not-allowed; }
-}
-.form-disclaimer { font-size: 0.8rem; color: v.$text-color-light; text-align: center; margin-top: 1rem; }
 
-// UPDATED: Styling for the tabbed map section
+.submit-button {
+  width: 100%; padding: 1rem; background-color: v.$secondary-color; color: v.$white; border: none; border-radius: 6px;
+  font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+  &:hover:not(:disabled) { background-color: color.adjust(v.$secondary-color, $lightness: -5%); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(v.$primary-color, 0.2); }
+  &:disabled { background-color: v.$gray-light; color: v.$text-color-light; cursor: not-allowed; }
+}
+
+.form-disclaimer { font-size: 0.85rem; color: v.$text-color-light; text-align: center; margin-top: 1rem; }
+
+// --- Map Section ---
 .map-section {
-  padding: 2rem 0 4rem 0;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding: 2rem 0 6rem 0;
+  max-width: 1200px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem;
 
   .map-tabs {
     display: flex;
-    margin-bottom: -1px; // Allows active tab border to overlap container border
+    position: relative;
+    z-index: 2; // Sit above the map border
   }
 
   .map-tab-button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600;
+    padding: 1rem 2rem;
+    font-size: 1rem; font-weight: 600;
     border: 1px solid v.$border-color;
-    border-bottom: none;
+    border-bottom: 1px solid v.$border-color; // Default state
     background-color: v.$gray-lightest;
     color: v.$text-color-light;
     cursor: pointer;
     border-radius: 8px 8px 0 0;
     margin-right: 0.5rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.2s ease;
 
     &.active {
       background-color: v.$white;
       color: v.$primary-color;
+      border-bottom: 1px solid v.$white; // Hides the border below it
+      margin-bottom: -1px; // Pulls it down to overlap the container border
+      font-weight: 700;
     }
   }
 
   .map-container {
     aspect-ratio: 16 / 7;
     border: 1px solid v.$border-color;
-    border-radius: 0 8px 8px 8px; // Match tab radius
+    border-radius: 0 8px 8px 8px;
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(v.$primary-color, 0.08);
+    position: relative;
+    z-index: 1;
+    background-color: v.$white;
   }
 
-  .map-iframe-wrapper {
-    width: 100%;
-    height: 100%;
-  }
-
-  iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
+  .map-iframe-wrapper { width: 100%; height: 100%; }
+  iframe { width: 100%; height: 100%; border: 0; }
 }
 
-// Responsive
+// --- Responsive ---
 @media (max-width: 992px) {
   .contact-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
   .hero-section h1 { font-size: 2.5rem; }
   .form-panel { padding: 1.5rem; }
-  .map-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .content-wrapper { padding: 3rem 1.5rem; }
 }

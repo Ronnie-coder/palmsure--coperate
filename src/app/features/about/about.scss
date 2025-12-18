@@ -1,125 +1,163 @@
-/* src/app/features/about/about.scss */
+// CRITICAL FIX: Go up 3 levels to find assets
 @use '../../../assets/scss/variables' as v;
 @use 'sass:color';
 
+// --- Animations ---
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
 :host { display: block; background-color: v.$background-color; color: v.$text-color; }
+
 .content-wrapper { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
-h2 { text-align: center; font-size: 2.5rem; font-weight: 600; margin-bottom: 3rem; color: v.$primary-color; }
+h2 { text-align: center; font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; color: v.$primary-color; }
+.section-subtitle { text-align: center; color: v.$text-color-light; margin-bottom: 3rem; margin-top: -1rem; font-size: 1.1rem; }
 
-// Section 1: Hero
+// --- Hero Section ---
 .hero-section {
-  text-align: center; background-color: v.$gray-lightest; padding: 2rem 0;
+  text-align: center; background-color: v.$gray-lightest; padding: 4rem 0;
+
   .content-wrapper {
-    padding-top: 2rem; padding-bottom: 2rem;
     & > * { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
-    h1 { animation-delay: 0.2s; }
-    p.subtitle { animation-delay: 0.4s; }
+    h1 { animation-delay: 0.1s; font-size: 3.5rem; font-weight: 800; color: v.$primary-color; margin-bottom: 1.5rem; }
+    p.subtitle { animation-delay: 0.3s; font-size: 1.25rem; max-width: 800px; margin: 0 auto; color: v.$text-color-light; line-height: 1.6; }
   }
-  h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem; color: v.$primary-color; }
-  .subtitle { font-size: 1.25rem; max-width: 800px; margin: 0 auto; color: v.$text-color-light; }
 }
 
-// Section 2: Metrics
+// --- Metrics & Founder ---
 .metrics-section {
-  .metric-card { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease; }
-  &.is-visible {
-    .metric-card { opacity: 1; transform: translateY(0); }
-    .metric-card:nth-of-type(1) { transition-delay: 0.1s; }
-    .metric-card:nth-of-type(2) { transition-delay: 0.2s; }
-    .metric-card:nth-of-type(3) { transition-delay: 0.3s; }
-  }
-  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+  padding-bottom: 2rem;
+
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
+  // Generic Metric Card
   .metric-card {
-    background-color: v.$white; border-radius: 8px; padding: 2rem; text-align: center;
+    background-color: v.$white; border-radius: 12px; padding: 2.5rem; text-align: center;
     border: 1px solid v.$border-color; box-shadow: 0 4px 12px rgba(v.$primary-color, 0.05);
-    &:hover { transform: translateY(-5px) !important; box-shadow: 0 8px 20px rgba(v.$primary-color, 0.1); }
-  }
-  .metric-value { display: block; font-size: 3.5rem; font-weight: 700; color: v.$secondary-color; min-width: 120px; }
-  .metric-label { font-size: 1.1rem; color: v.$text-color-light; margin: 0; }
-}
+    opacity: 0; transform: translateY(20px); transition: all 0.4s ease;
 
-// RE-IMPLEMENTED: Interactive Founder Card Styling
-.founder-card {
-  position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
-  padding: 0; text-decoration: none; min-height: 180px; // Ensure it has a minimum height
-  .founder-image-background {
-    position: absolute; inset: 0;
-    background-image: url('/assets/images/founder.jpg');
-    background-size: cover; background-position: center;
-    transition: transform 0.4s ease, filter 0.4s ease;
-    // Dark overlay using a filter for better performance
-    filter: brightness(0.5);
-  }
-  .founder-content {
-    position: relative; z-index: 2; padding: 2rem;
-    transition: transform 0.4s ease;
-    * { color: v.$white; }
-  }
-  .founder-name { display: block; font-size: 2rem; font-weight: 600; margin-bottom: 0.25rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
-  .metric-label { color: rgba(v.$white, 0.8) !important; }
+    .metric-value { display: block; font-size: 4rem; font-weight: 800; color: v.$secondary-color; line-height: 1; margin-bottom: 0.5rem; }
+    .metric-label { font-size: 1.1rem; color: v.$text-color-light; font-weight: 500; }
 
-  // The hover interaction
-  &:hover {
-    .founder-image-background {
-      transform: scale(1.05);
-      filter: brightness(0.8);
+    &:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(v.$primary-color, 0.1); }
+  }
+
+  // Animation Trigger
+  &.is-visible .metric-card {
+    opacity: 1; transform: translateY(0);
+    &:nth-child(1) { transition-delay: 0.1s; }
+    &:nth-child(2) { transition-delay: 0.2s; }
+    &:nth-child(3) { transition-delay: 0.3s; }
+  }
+
+  // Specific Founder Card Styling
+  .founder-card {
+    position: relative; overflow: hidden; padding: 0; border: none;
+    min-height: 250px; display: flex; align-items: flex-end; justify-content: flex-start;
+    text-align: left;
+
+    // Background Image
+    .founder-bg {
+      position: absolute; inset: 0;
+      // Ensure you have an image here, or it will be blank
+      background-image: url('../../../assets/images/founder.jpg');
+      background-color: v.$gray-light; // Fallback color
+      background-size: cover; background-position: center;
+      transition: transform 0.6s ease;
     }
-    .founder-content { transform: translateY(-5px); }
+
+    // Gradient Overlay using Brand Colors
+    .founder-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(v.$brand-navy, 0.95), transparent 60%);
+      z-index: 1;
+    }
+
+    .founder-content {
+      position: relative; z-index: 2; padding: 2rem; width: 100%;
+
+      .founder-role { display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: v.$brand-green; font-weight: 600; margin-bottom: 5px; }
+      .founder-name { display: block; font-size: 1.8rem; font-weight: 700; color: v.$white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+    }
+
+    &:hover {
+      .founder-bg { transform: scale(1.08); }
+    }
   }
 }
 
-// Section 3: Mission & Vision... (No changes needed from here down)
+// --- Mission & Vision ---
 .mission-vision-section {
   background-color: v.$gray-lightest;
-  .mission-vision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .mission-vision-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
+
   .vision-card {
-    background-color: v.$white; padding: 2.5rem; border-radius: 8px; border-top: 5px solid v.$primary-color;
-    text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease;
-    &:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(v.$primary-color, 0.1); }
-    .card-icon { font-size: 3rem; color: v.$secondary-color; margin-bottom: 1.5rem; }
-    h2 { text-align: center; margin-top: 0; margin-bottom: 1rem; font-size: 2rem; }
-    p { line-height: 1.7; font-size: 1.1rem; }
+    background-color: v.$white; padding: 3rem 2rem; border-radius: 12px;
+    border-bottom: 4px solid v.$secondary-color;
+    text-align: center; transition: transform 0.3s ease;
+
+    .icon-circle {
+      width: 70px; height: 70px; background-color: rgba(v.$secondary-color, 0.1);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem auto; color: v.$secondary-color;
+      .material-symbols-outlined { font-size: 2.5rem; }
+    }
+
+    h2 { font-size: 1.75rem; margin-bottom: 1rem; }
+    p { font-size: 1.05rem; line-height: 1.7; color: v.$text-color; }
+
+    &:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
   }
 }
+
+// --- Team Section ---
 .team-section {
-  .team-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 2rem; justify-items: center;
-  }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+
   .team-member-card {
-    background-color: v.$white; border-radius: 8px; padding: 2rem; text-align: center; width: 100%; max-width: 260px;
-    box-shadow: 0 4px 12px rgba(v.$primary-color, 0.05); border: 1px solid v.$border-color;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    &:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(v.$primary-color, 0.1); }
+    background-color: v.$white; border-radius: 12px; padding: 2rem; text-align: center;
+    border: 1px solid v.$border-color; transition: all 0.3s ease;
+
+    .team-member-icon-wrapper {
+      width: 90px; height: 90px; border-radius: 50%; color: v.$white;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;
+
+      // Dynamic colors for avatars
+      &.icon-bg-1 { background-color: v.$secondary-color; }
+      &.icon-bg-2 { background-color: color.adjust(v.$primary-color, $lightness: 15%); }
+      &.icon-bg-3 { background-color: color.adjust(v.$secondary-color, $hue: 15deg); }
+      &.icon-bg-4 { background-color: color.adjust(v.$primary-color, $lightness: 25%); }
+
+      .material-symbols-outlined { font-size: 3rem; }
+    }
+
+    .member-name { font-size: 1.4rem; font-weight: 700; color: v.$primary-color; margin-bottom: 0.5rem; }
+
+    .member-email {
+      color: v.$text-color-light; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;
+      &:hover { color: v.$secondary-color; text-decoration: underline; }
+    }
+
+    &:hover {
+      transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      .team-member-icon-wrapper { animation: pulse 0.6s ease-in-out; }
+    }
   }
-  .team-member-icon-wrapper {
-    width: 80px; height: 80px; border-radius: 50%; color: v.$white;
-    display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;
-    &.icon-bg-1 { background-color: v.$secondary-color; }
-    &.icon-bg-2 { background-color: color.adjust(v.$primary-color, $lightness: 10%); }
-    &.icon-bg-3 { background-color: #6c757d; }
-    &.icon-bg-4 { background-color: color.adjust(v.$secondary-color, $saturation: -10%, $lightness: 5%); }
-    .material-symbols-outlined { font-size: 2.5rem; }
-  }
-  .member-name { font-size: 1.25rem; font-weight: 600; margin: 0 0 0.5rem 0; color: v.$primary-color; }
-  .member-email { color: v.$secondary-color; text-decoration: none; font-weight: 500; &:hover { text-decoration: underline; } }
 }
+
+// --- Partners ---
 .partners-section {
   background-color: v.$gray-lightest;
-  .logo-grid {
-    display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2.5rem;
-  }
+  .logo-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; }
   .partner-logo {
-    height: 60px; max-width: 150px; width: auto; object-fit: contain; filter: grayscale(100%);
-    opacity: 0.6; transition: all 0.3s ease;
-    &:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.05); }
+    height: 50px; width: auto; object-fit: contain;
+    filter: grayscale(100%); opacity: 0.6; transition: all 0.3s ease;
+    &:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
   }
 }
+
+// --- Responsive ---
 @media (max-width: 768px) {
-  h2 { font-size: 2rem; }
-  .content-wrapper { padding: 3rem 1.5rem; }
   .hero-section h1 { font-size: 2.5rem; }
-  .mission-vision-section .mission-vision-grid { grid-template-columns: 1fr; }
+  .content-wrapper { padding: 3rem 1.5rem; }
+  .founder-card { min-height: 200px; }
 }

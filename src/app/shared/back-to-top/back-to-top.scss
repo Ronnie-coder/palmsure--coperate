@@ -6,20 +6,20 @@
 }
 
 .back-to-top-button {
-  // Positioning
+  // Positioning: Moved to LEFT to avoid Chatbot on the right
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  z-index: 999;
+  bottom: 2rem; // Slightly higher for better aesthetics
+  left: 2rem;   // MOVED FROM RIGHT TO LEFT
+  z-index: 998; // High enough to sit over content, but under modals
 
   // Appearance
-  background-color: v.$primary-color;
+  background-color: v.$primary-color; // Brand Navy
   color: v.$white;
   border: none;
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  box-shadow: 0 4px 12px rgba(v.$primary-color, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 
   // Flexbox for icon centering
   display: flex;
@@ -33,7 +33,7 @@
   opacity: 0;
   transform: translateY(20px);
   pointer-events: none; // Not clickable when hidden
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.3s ease;
 
   // State when button should be visible
   &.show {
@@ -43,12 +43,23 @@
   }
 
   &:hover {
-    background-color: color.adjust(v.$primary-color, $lightness: 10%);
-    transform: translateY(-3px);
+    background-color: v.$secondary-color; // Brand Green on hover
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
   }
 
   .material-symbols-outlined {
     font-size: 2rem; // 32px
     font-weight: 700;
+  }
+}
+
+// Mobile adjustment
+@media (max-width: 768px) {
+  .back-to-top-button {
+    bottom: 1.5rem;
+    left: 1.5rem;
+    width: 45px;
+    height: 45px;
   }
 }

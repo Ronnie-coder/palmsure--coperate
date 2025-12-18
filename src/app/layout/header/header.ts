@@ -1,32 +1,27 @@
-// src/app/layout/header/header.ts
-
-import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser, CommonModule } from '@angular/common'; // UPDATED: isPlatformBrowser is needed for SSR safety
+import { Component, HostListener, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    RouterLinkActive
-  ],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.html',
-  styleUrl: './header.scss'
+  styleUrls: ['./header.scss']
 })
-export class Header {
+export class Header { // Renamed from HeaderComponent to Header to fix app.ts error
   isScrolled = false;
   isMobileMenuOpen = false;
 
-  // UPDATED: Inject PLATFORM_ID to check if we are on the browser or server
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private renderer: Renderer2
+  ) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    // SSR-SAFE: Only check for window properties if we are in a browser
     if (isPlatformBrowser(this.platformId)) {
-      this.isScrolled = window.pageYOffset > 10;
+      this.isScrolled = window.scrollY > 20;
     }
   }
 
@@ -36,19 +31,17 @@ export class Header {
   }
 
   closeMobileMenu() {
-    if (this.isMobileMenuOpen) {
-      this.isMobileMenuOpen = false;
-      this.updateBodyScroll();
-    }
+    this.isMobileMenuOpen = false;
+    this.updateBodyScroll();
   }
 
-  /**
-   * NEW: Centralized logic to control body scrolling.
-   * This is now SSR-safe.
-   */
   private updateBodyScroll() {
     if (isPlatformBrowser(this.platformId)) {
-      document.body.style.overflow = this.isMobileMenuOpen ? 'hidden' : 'auto';
+      if (this.isMobileMenuOpen) {
+        this.renderer.addClass(document.body, 'no-scroll');
+      } else {
+        this.renderer.removeClass(document.body, 'no-scroll');
+      }
     }
   }
 }

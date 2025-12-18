@@ -1,9 +1,8 @@
-/* src/app/features/service-detail/service-detail.ts */
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Title, Meta } from '@angular/platform-browser'; // SEO Imports
 
-// NEW: Interface for a single key feature with its own icon
 interface KeyFeature {
   text: string;
   icon: string;
@@ -13,7 +12,7 @@ interface Service {
   id: string;
   title: string;
   description: string;
-  keyFeatures: KeyFeature[]; // MODIFIED: Now an array of KeyFeature objects
+  keyFeatures: KeyFeature[];
   imageUrl: string;
 }
 
@@ -22,17 +21,16 @@ interface Service {
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './service-detail.html',
-  styleUrl: './service-detail.scss'
+  styleUrls: ['./service-detail.scss']
 })
 export class ServiceDetail implements OnInit {
   service: Service | undefined;
 
-  // MODIFIED: allServices data is now structured with specific icons for each feature
   private allServices: Service[] = [
     {
       id: 'property',
       title: 'Property Insurance',
-      description: 'Secure your most valuable asset. Our comprehensive property insurance protects your home and belongings from unforeseen events, offering you peace of mind whether you are at home or away.',
+      description: 'Secure your most valuable asset. Our comprehensive property insurance protects your home and belongings from unforeseen events.',
       keyFeatures: [
         { text: 'Coverage against fire, theft, and natural disasters', icon: 'local_fire_department' },
         { text: 'Liability protection for accidents on your property', icon: 'gavel' },
@@ -44,7 +42,7 @@ export class ServiceDetail implements OnInit {
     {
       id: 'vehicle',
       title: 'Vehicle Insurance',
-      description: 'On the road, the unexpected can happen. Our vehicle insurance provides robust protection for your car, truck, or motorcycle, covering everything from minor fender-benders to major accidents.',
+      description: 'On the road, the unexpected can happen. Our vehicle insurance provides robust protection for your car, truck, or motorcycle.',
       keyFeatures: [
         { text: 'Comprehensive, third-party, and liability-only options', icon: 'policy' },
         { text: 'Roadside assistance and towing services', icon: 'car_crash' },
@@ -56,7 +54,7 @@ export class ServiceDetail implements OnInit {
     {
       id: 'business',
       title: 'Business Insurance',
-      description: 'Protect the business you’ve worked so hard to build. We offer tailored insurance solutions that cover your commercial property, liability, and employees, allowing you to focus on growth.',
+      description: 'Protect the business you’ve worked so hard to build. We offer tailored insurance solutions that cover your commercial property, liability, and employees.',
       keyFeatures: [
         { text: 'Commercial property and asset protection', icon: 'domain' },
         { text: 'Public and employer’s liability coverage', icon: 'groups' },
@@ -68,7 +66,7 @@ export class ServiceDetail implements OnInit {
     {
       id: 'personal',
       title: 'Personal Insurance',
-      description: 'Safeguard your future and protect your loved ones with our personal insurance solutions. From life cover to income protection, we provide policies that offer security and peace of mind for every stage of life.',
+      description: 'Safeguard your future and protect your loved ones with our personal insurance solutions. From life cover to income protection.',
       keyFeatures: [
         { text: 'Life and Disability Cover', icon: 'health_and_safety' },
         { text: 'Comprehensive Income Protection Plans', icon: 'account_balance_wallet' },
@@ -79,14 +77,34 @@ export class ServiceDetail implements OnInit {
     }
   ];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private titleService: Title, // Inject SEO Title Service
+    private metaService: Meta    // Inject SEO Meta Service
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const serviceId = params.get('id');
       if (serviceId) {
         this.service = this.allServices.find(s => s.id === serviceId);
+
+        // SEO MAGIC: Update the browser title and description dynamically
+        if (this.service) {
+          this.updateSEO(this.service);
+        }
       }
+    });
+  }
+
+  private updateSEO(service: Service) {
+    // Sets tab title to: Property Insurance | Palmsure
+    this.titleService.setTitle(`${service.title} | Palmsure Insurance`);
+
+    // Updates Meta Description for Google
+    this.metaService.updateTag({
+      name: 'description',
+      content: service.description
     });
   }
 }

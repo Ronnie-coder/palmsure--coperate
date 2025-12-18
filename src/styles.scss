@@ -1,63 +1,58 @@
-// src/styles.scss
-@use 'assets/scss/variables' as v;
-@use 'sass:color'; // Required for button hover effects
+// Use ./ to ensure we look in src/assets
+@use './assets/scss/variables' as v;
+@use 'sass:color';
+
+// --- Google Fonts Import ---
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 // --- Global Resets & Base Styles ---
 body {
   margin: 0;
-  font-family: sans-serif; // Placeholder, to be replaced with brand font
+  font-family: 'Inter', sans-serif;
   background-color: v.$background-color;
   color: v.$text-color;
+  overflow-x: hidden;
+}
+
+// Critical for the mobile menu
+body.no-scroll {
+  overflow: hidden !important;
 }
 
 a {
   color: v.$secondary-color;
   text-decoration: none;
+  transition: color 0.2s ease;
   &:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    color: color.adjust(v.$secondary-color, $lightness: -10%);
   }
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem; // Standardized padding
+  padding: 0 1.5rem;
 }
 
-.section-padding {
-  padding: 4rem 0;
-}
-.section-padding-sm {
-  padding: 3rem 0;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: v.$primary-color;
-  margin-bottom: 2.5rem;
-}
-
-// ==========================================================================
-// GLOBAL UI COMPONENTS
-// ==========================================================================
-
-// --- Buttons ---
-// These styles are now globally available to any element with the .btn class.
+// --- Global Buttons ---
 .btn {
-  display: inline-block;
-  padding: 0.9rem 2.5rem;
-  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  border: 1px solid transparent;
+  gap: 8px;
 
   &:hover {
-    text-decoration: none; // Remove underline on button hover
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 }
 
@@ -66,20 +61,18 @@ a {
   color: v.$white;
 
   &:hover {
-    background-color: color.adjust(v.$secondary-color, $lightness: -10%);
-    transform: translateY(-2px);
+    background-color: color.adjust(v.$secondary-color, $lightness: -5%);
   }
 }
 
 .btn-secondary {
-  background-color: v.$white;
+  background-color: transparent;
   color: v.$primary-color;
   border-color: v.$border-color;
 
   &:hover {
-    background-color: v.$primary-color;
-    color: v.$white;
     border-color: v.$primary-color;
-    transform: translateY(-2px);
+    color: v.$primary-color;
+    background-color: rgba(v.$primary-color, 0.05);
   }
 }

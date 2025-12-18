@@ -1,50 +1,54 @@
-<!-- src/app/layout/header/header.html -->
-
-<header class="site-header" [ngClass]="{'scrolled': isScrolled, 'mobile-menu-active': isMobileMenuOpen}">
+<header class="site-header" [class.scrolled]="isScrolled">
   <div class="header-container">
-    <div class="logo">
-      <a routerLink="/" class="logo-text" (click)="closeMobileMenu()">
-        Palmsure
-        <span class="logo-subtext">Insurance Brokers</span>
+
+    <!-- 1. Brand / Logo -->
+    <a routerLink="/" class="brand-logo" (click)="closeMobileMenu()">
+      <span class="brand-text">Palmsure</span>
+      <span class="brand-divider">|</span>
+      <span class="brand-tagline">Insurance Brokers</span>
+    </a>
+
+    <!-- 2. Navigation Wrapper -->
+    <div class="nav-wrapper" [class.is-open]="isMobileMenuOpen">
+      <div class="nav-overlay" (click)="closeMobileMenu()"></div>
+
+      <nav class="main-nav">
+        <button class="mobile-close-btn" (click)="closeMobileMenu()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <ul>
+          <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMobileMenu()">Home</a></li>
+          <li><a routerLink="/about" routerLinkActive="active" (click)="closeMobileMenu()">About Us</a></li>
+          <li><a routerLink="/services" routerLinkActive="active" (click)="closeMobileMenu()">Our Solutions</a></li>
+          <li><a routerLink="/contact" routerLinkActive="active" (click)="closeMobileMenu()">Contact</a></li>
+
+          <!-- MOBILE ACTION: Updated Link Here -->
+          <li class="mobile-actions">
+            <a routerLink="/quote" class="btn btn-primary btn-full" (click)="closeMobileMenu()">Get a Quote</a>
+            <a href="https://berrysure.co.za/login" target="_blank" class="btn btn-secondary btn-full" (click)="closeMobileMenu()">Client Portal</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- 3. Desktop Actions -->
+    <div class="desktop-actions">
+      <!-- DESKTOP ACTION: Updated Link Here -->
+      <a href="https://berrysure.co.za/login" target="_blank" class="link-login">
+        <span class="material-symbols-outlined">login</span> Portal
+      </a>
+      <a routerLink="/quote" class="btn btn-primary">
+        Get a Quote
       </a>
     </div>
 
-    <!-- UPDATED: Nav now has dynamic classes and an overlay for the mobile view -->
-    <nav class="main-nav" id="main-navigation" [ngClass]="{'is-open': isMobileMenuOpen}">
-      <!-- NEW: This overlay closes the menu when clicked -->
-      <div class="nav-overlay" (click)="closeMobileMenu()"></div>
-
-      <!-- UPDATED: List closes menu on link click -->
-      <ul (click)="closeMobileMenu()">
-        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
-        <li><a routerLink="/about" routerLinkActive="active">About</a></li>
-        <li><a routerLink="/services" routerLinkActive="active">Services</a></li>
-        <!-- REMOVED: "Resources" link is gone -->
-        <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
-      </ul>
-    </nav>
-
-    <div class="header-actions">
-      <div class="header-cta">
-        <a href="#" class="cta-button">
-          <span class="material-symbols-outlined">login</span>
-          <span class="cta-text">Portal</span>
-        </a>
-      </div>
-
-      <!-- NEW: Mobile Menu Hamburger Button -->
-      <button
-        class="mobile-menu-toggle"
-        (click)="toggleMobileMenu()"
-        aria-label="Toggle navigation menu"
-        [attr.aria-expanded]="isMobileMenuOpen"
-        aria-controls="main-navigation"
-      >
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-    </div>
+    <!-- 4. Mobile Hamburger -->
+    <button class="hamburger-menu" (click)="toggleMobileMenu()" aria-label="Toggle Menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
 
   </div>
 </header>

@@ -1,28 +1,85 @@
-<!-- src/app/features/contact/contact.html -->
 <main class="contact-page-container">
+
+  <!-- HERO -->
   <section class="hero-section">
-    <div class="content-wrapper"><h1>Let's Connect</h1><p class="subtitle">We're here to help with all your insurance needs.</p></div>
+    <!-- Added Gradient for consistency -->
+    <div class="hero-background-gradient"></div>
+    <div class="content-wrapper">
+      <h1>Let's Connect</h1>
+      <p class="subtitle">We're here to help with all your insurance needs.</p>
+    </div>
   </section>
 
+  <!-- INFO & FORM GRID -->
   <section class="main-content-section">
     <div class="content-wrapper">
       <div class="contact-grid">
+
+        <!-- Left: Info Panel -->
         <div class="info-panel">
           <h2>Contact Details</h2>
-          <div class="info-item"><span class="material-symbols-outlined">call</span><div class="info-item-content"><strong>Phone</strong><a href="tel:0216998370">021 699 8370</a></div></div>
-          <div class="info-item"><span class="material-symbols-outlined">mail</span><div class="info-item-content"><strong>Email</strong><a href="mailto:info@palmsure.co.za">info@palmsure.co.za</a></div></div>
+
+          <div class="info-item">
+            <span class="material-symbols-outlined">call</span>
+            <div class="info-item-content">
+              <strong>Phone</strong>
+              <a href="tel:0216998370">021 699 8370</a>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <span class="material-symbols-outlined">mail</span>
+            <div class="info-item-content">
+              <strong>Email</strong>
+              <a href="mailto:info@palmsure.co.za">info@palmsure.co.za</a>
+            </div>
+          </div>
+
           <h2 class="sub-heading">Our Branches</h2>
-          <div class="info-item"><span class="material-symbols-outlined">location_on</span><div class="info-item-content"><strong>Cape Town Branch (Main)</strong><address>1 Reen Avenue<br>Athlone, Cape Town</address></div></div>
-          <div class="info-item"><span class="material-symbols-outlined">location_on</span><div class="info-item-content"><strong>Mthatha Branch</strong><address>69 Thungula Street<br>Kwezi Ext, Mthatha, 5099</address></div></div>
+
+          <div class="info-item">
+            <span class="material-symbols-outlined">location_on</span>
+            <div class="info-item-content">
+              <strong>Cape Town Branch (Main)</strong>
+              <address>1 Reen Avenue<br>Athlone, Cape Town</address>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <span class="material-symbols-outlined">location_on</span>
+            <div class="info-item-content">
+              <strong>Mthatha Branch</strong>
+              <address>69 Thungula Street<br>Kwezi Ext, Mthatha, 5099</address>
+            </div>
+          </div>
         </div>
+
+        <!-- Right: Form Panel -->
         <div class="form-panel">
           <h2>Send Us a Message</h2>
           <p>Fill out the form below and we'll get back to you shortly.</p>
+
           <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-            <div class="form-field"><label for="fullName">Full Name</label><input type="text" id="fullName" formControlName="fullName" placeholder="John Doe"></div>
-            <div class="form-field"><label for="email">Email Address</label><input type="email" id="email" formControlName="email" placeholder="john@example.com"></div>
-            <div class="form-field"><label for="contactNumber">Contact Number</label><input type="tel" id="contactNumber" formControlName="contactNumber" placeholder="Your phone number"></div>
-            <div class="form-field"><label for="message">Your Message</label><textarea id="message" formControlName="message" rows="5" placeholder="Type your message here..."></textarea></div>
+            <div class="form-field">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" formControlName="fullName" placeholder="John Doe">
+            </div>
+
+            <div class="form-field">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" formControlName="email" placeholder="john@example.com">
+            </div>
+
+            <div class="form-field">
+              <label for="contactNumber">Contact Number</label>
+              <input type="tel" id="contactNumber" formControlName="contactNumber" placeholder="Your phone number">
+            </div>
+
+            <div class="form-field">
+              <label for="message">Your Message</label>
+              <textarea id="message" formControlName="message" rows="5" placeholder="Type your message here..."></textarea>
+            </div>
+
             <button type="submit" class="submit-button" [disabled]="!contactForm.valid">Send Message</button>
             <p class="form-disclaimer">By submitting this form, you agree to our privacy policy and terms of service.</p>
           </form>
@@ -31,18 +88,19 @@
     </div>
   </section>
 
-  <!-- UPDATED: Map section with a tabbed interface -->
+  <!-- MAP SECTION (Tabbed) -->
   <section class="map-section">
     <div class="map-tabs">
       <button class="map-tab-button" [class.active]="activeMap === 'cape-town'" (click)="selectMap('cape-town')">Cape Town Branch</button>
       <button class="map-tab-button" [class.active]="activeMap === 'mthatha'" (click)="selectMap('mthatha')">Mthatha Branch</button>
     </div>
+
     <div class="map-container">
       <div class="map-iframe-wrapper" [hidden]="activeMap !== 'cape-town'">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3308.4304824284973!2d18.534736775021273!3d-33.9814749249024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc44bd00f4aa63%3A0xb33680869aa44457!2s1%20Reen%20Ave%2C%20Athlone%2C%20Cape%20Town%2C%207764!5e0!3m2!1sen!2sza!4v1760430688557!5m2!1sen!2sza" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3308.4304824284973!2d18.534736775021273!3d-33.9814749249024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc44bd00f4aa63%3A0xb33680869aa44457!2s1%20Reen%20Ave%2C%20Athlone%2C%20Cape%20Town%2C%207764!5e0!3m2!1sen!2sza!4v1760430688557!5m2!1sen!2sza" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of Cape Town Branch"></iframe>
       </div>
       <div class="map-iframe-wrapper" [hidden]="activeMap !== 'mthatha'">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54369.6153297751!2d28.729841228710605!3d-31.603693285249978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e5fd0b100000001%3A0x6431a37707bb38d4!2sPalmsure%20Insurance%20Brokers!5e0!3m2!1sen!2sza!4v1760430743855!5m2!1sen!2sza" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54369.6153297751!2d28.729841228710605!3d-31.603693285249978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e5fd0b100000001%3A0x6431a37707bb38d4!2sPalmsure%20Insurance%20Brokers!5e0!3m2!1sen!2sza!4v1760430743855!5m2!1sen!2sza" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of Mthatha Branch"></iframe>
       </div>
     </div>
   </section>

@@ -1,298 +1,243 @@
-// src/app/layout/header/header.scss
-
-@use 'sass:color';
+// Go up 3 levels to find the assets folder: src/app/layout/header -> src
 @use '../../../assets/scss/variables' as v;
+@use 'sass:color';
 
-@keyframes fadeInUpBrand {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+// Navbar Variables
+$nav-height: 80px;
+$nav-height-scrolled: 70px;
+$glass-bg: rgba(255, 255, 255, 0.95);
 
 .site-header {
-  background-color: transparent;
-  padding: 1.5rem 2rem;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  height: $nav-height;
   z-index: 1000;
-  transition: background-color 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
 
   &.scrolled {
-    background-color: v.$white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    padding: 1rem 2rem;
+    height: $nav-height-scrolled;
+    background: $glass-bg;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); // Safari support
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   }
 }
 
 .header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
-.logo-text {
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 1.5rem;
-  color: v.$primary-color;
+// --- Brand Styling ---
+.brand-logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  animation: fadeInUpBrand 0.8s ease-out 0.2s forwards;
-  opacity: 0;
+  gap: 12px;
+  text-decoration: none;
+  z-index: 1002;
 
-  .logo-subtext {
-    font-size: 0.9rem;
-    font-weight: 500;
+  .brand-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: v.$primary-color;
+    letter-spacing: -0.5px;
+  }
+
+  .brand-divider {
+    color: v.$gray-light;
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+
+  .brand-tagline {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     color: v.$text-color-light;
-    border-left: 2px solid v.$gray-light;
-    padding-left: 0.6rem;
-    line-height: 1.2;
+    font-weight: 500;
   }
 }
 
-.main-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  gap: 2.5rem;
-}
+// --- Navigation Styling ---
+.nav-wrapper {
+  .main-nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
-.main-nav a {
-  text-decoration: none;
-  color: v.$primary-color;
-  font-weight: 600;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid transparent;
-  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+    a {
+      text-decoration: none;
+      color: v.$text-color;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s;
 
-  &:hover, &.active {
-    color: v.$secondary-color;
-    border-bottom-color: v.$secondary-color;
-  }
-}
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: v.$secondary-color;
+        transition: width 0.3s;
+      }
 
-// UPDATED: Grouped header actions together
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.cta-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: v.$secondary-color;
-  color: v.$white;
-  padding: 0.7rem 1.4rem;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-
-  .material-symbols-outlined { font-size: 1.25rem; }
-
-  &:hover {
-    background-color: color.adjust(v.$secondary-color, $lightness: -10%);
-    transform: translateY(-2px);
-  }
-}
-
-// --- NEW: Mobile Menu Styles ---
-.mobile-menu-toggle {
-  display: none; // Hidden by default, shown on mobile
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  z-index: 1002; // Must be above the nav panel
-
-  .bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: v.$primary-color;
-    margin: 5px 0;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-  }
-}
-
-.nav-overlay {
-  display: none; // Hidden by default
-}
-
-
-// --- RESPONSIVE STYLES ---
-
-@media (max-width: 992px) {
-  .logo-text .logo-subtext { display: none; }
-  .main-nav ul { gap: 1.5rem; }
-  .cta-button .cta-text { display: none; } // On tablets, just show the icon
-  .cta-button { padding: 0.7rem; }
-}
-
-// UPDATED: This is now the breakpoint for the mobile menu
-@media (max-width: 768px) {
-  // Show the hamburger button
-  .mobile-menu-toggle {
-    display: block;
-  }
-
-  // Animate hamburger to an 'X' when menu is open
-  .site-header.mobile-menu-active {
-    .mobile-menu-toggle {
-      .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-      .bar:nth-child(2) { opacity: 0; }
-      .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+      &:hover, &.active {
+        color: v.$primary-color;
+        &::after { width: 100%; }
+      }
     }
   }
 
-  // Style the mobile nav panel
-  .main-nav {
+  .nav-overlay, .mobile-close-btn, .mobile-actions {
+    display: none;
+  }
+}
+
+// --- Desktop Actions ---
+.desktop-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  .link-login {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: v.$primary-color;
+    font-size: 0.95rem;
+    text-decoration: none;
+
+    .material-icons { font-size: 1.2rem; }
+
+    &:hover { color: v.$secondary-color; }
+  }
+}
+
+.hamburger-menu { display: none; }
+
+// --- RESPONSIVE / MOBILE STYLES ---
+@media (max-width: 992px) {
+  .desktop-actions, .brand-tagline, .brand-divider { display: none; }
+
+  .hamburger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1002;
+
+    .bar {
+      width: 100%;
+      height: 2px;
+      background-color: v.$primary-color;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+  }
+
+  .nav-wrapper {
     position: fixed;
     top: 0;
     right: 0;
-    width: 300px;
     height: 100vh;
-    background-color: v.$white;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    transform: translateX(100%); // Start off-screen
-    transition: transform 0.4s ease-in-out;
+    width: 100%;
     z-index: 1001;
-    padding-top: 6rem;
+    pointer-events: none;
 
     &.is-open {
-      transform: translateX(0); // Slide in
+      pointer-events: all;
+      .nav-overlay { opacity: 1; pointer-events: all; }
+      .main-nav { transform: translateX(0); }
     }
 
-    ul {
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    a {
-      font-size: 1.2rem;
-      padding: 1rem 2rem;
-      display: block;
-      width: 100%;
-      text-align: center;
-    }
-  }
-
-  // Style the overlay
-  .nav-overlay {
-    display: block;
-    position: fixed;
-    inset: 0; // Covers entire screen (top, right, bottom, left = 0)
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease;
-  }
-
-  .main-nav.is-open + .nav-overlay {
-    // This is incorrect. The overlay should be inside the nav container for this to work easily.
-    // Let's adjust the structure slightly. My apologies. Let's place it inside nav for easier toggling.
-    // Okay, the HTML has it inside. I need to fix the SCSS selector.
-  }
-
-  // Correct approach for overlay with current HTML:
-  .main-nav.is-open .nav-overlay {
-    position: fixed;
-    inset: 0;
-    background: transparent; // It's just a click target
-    z-index: -1; // Place it behind the nav panel
-  }
-
-  // Let's try a simpler overlay that is a sibling, controlled by the header's parent class.
-  // The provided HTML has the overlay *inside* the nav. I will style it based on that.
-  // The logic is tricky. Let's simplify.
-  // I will move the overlay outside the nav in the html for cleaner logic. My mistake.
-
-  // Let's re-correct my HTML and SCSS logic live. The current HTML is fine, my SCSS was just complex.
-  // Let's simplify the SCSS for the overlay.
-  .main-nav {
     .nav-overlay {
-      display: none; // We don't need it if we handle body click or link click. Let's remove it to simplify. The user can click a link or the hamburger to close. This is common.
-    }
-  }
-   // After review, clicking the background to close is a better UX. I'll re-implement it correctly.
-  .main-nav.is-open {
-    .nav-overlay { // This is wrong. Let me provide the absolute best structure.
-
-    }
-  }
-}
-
-/* My apologies for the internal monologue. Here is the *final, corrected, and simplest* responsive SCSS. I have refactored it for clarity and correctness. */
-@media (max-width: 768px) {
-    .mobile-menu-toggle { display: block; }
-    .main-nav { display: none; } /* Hide the desktop nav completely */
-
-    .site-header.mobile-menu-active {
-        .mobile-menu-toggle {
-            .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-            .bar:nth-child(2) { opacity: 0; }
-            .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-        }
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
     }
 
-    /* This is the mobile nav panel that slides in */
-    nav.main-nav.is-open {
+    .main-nav {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 85%;
+      max-width: 320px;
+      height: 100%;
+      background: v.$white;
+      padding: 5rem 2rem 2rem;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+
+      .mobile-close-btn {
         display: block;
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: min(75vw, 320px); /* Use 75% of viewport width, but no more than 320px */
-        height: 100%;
-        background-color: v.$white;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-        z-index: 1001;
-        transform: translateX(0);
-        animation: slideIn 0.4s ease-in-out;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: none;
+        border: none;
+        color: v.$text-color;
+        cursor: pointer;
+        .material-icons { font-size: 2rem; }
+      }
 
-        ul {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.5rem;
-            padding-top: 6rem;
-            padding-left: 2rem;
-        }
+      ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
 
         a {
-            font-size: 1.2rem;
-            display: block;
-            padding: 0.75rem 0;
-            text-align: left;
-            border-bottom: none;
-            &:hover, &.active { border-bottom: none; color: v.$secondary-color; }
+          font-size: 1.2rem;
+          display: block;
+          width: 100%;
+          border-bottom: 1px solid v.$border-color;
+          padding-bottom: 1rem;
+          &::after { display: none; }
         }
-    }
+      }
 
-    @keyframes slideIn {
-        from { transform: translateX(100%); }
-        to { transform: translateX(0); }
-    }
+      .mobile-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 2rem;
 
-    /* This is the dark overlay behind the panel */
-    nav.main-nav.is-open .nav-overlay {
-        display: block;
-        position: fixed;
-        inset: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: -1; /* Place behind the panel but above the page content */
-        animation: fadeIn 0.4s ease-in-out;
+        .btn-full {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+      }
     }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
+  }
 }
