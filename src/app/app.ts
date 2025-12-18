@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './layout/header/header';
 import { Footer } from './layout/footer/footer';
 import { BackToTop } from './shared/back-to-top/back-to-top';
 import { ToastComponent } from './shared/toast/toast.component';
+
+// CORRECT IMPORT: Use 'inject' for Angular, not the React Component
+import { inject } from '@vercel/analytics';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +18,6 @@ import { ToastComponent } from './shared/toast/toast.component';
     BackToTop,
     ToastComponent
   ],
-  // We use an inline template here to ensure the Toast and BackToTop are rendered on every page
   template: `
     <app-header></app-header>
     <app-toast></app-toast>
@@ -25,6 +27,12 @@ import { ToastComponent } from './shared/toast/toast.component';
   `,
   styleUrl: './app.scss'
 })
-export class App {
+export class App implements OnInit {
   title = 'palmsure-corp-v2';
+
+  ngOnInit() {
+    // Initialize Vercel Analytics
+    // This will automatically track page views in production
+    inject();
+  }
 }
