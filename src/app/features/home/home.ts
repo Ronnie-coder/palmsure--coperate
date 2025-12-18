@@ -1,6 +1,7 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, Inject, PLATFORM_ID, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, Inject, PLATFORM_ID, OnDestroy, QueryList, ViewChildren, OnInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Title, Meta } from '@angular/platform-browser'; // SEO Imports
 import { Chart } from 'chart.js/auto';
 
 type Partner = {
@@ -15,7 +16,7 @@ type Partner = {
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
 })
-export class Home implements AfterViewInit, OnDestroy {
+export class Home implements OnInit, AfterViewInit, OnDestroy {
   // --- Element References ---
   @ViewChild('claimsChart') chartCanvas!: ElementRef<HTMLCanvasElement>;
   @ViewChild('statsSection') statsSection!: ElementRef<HTMLElement>;
@@ -42,7 +43,28 @@ export class Home implements AfterViewInit, OnDestroy {
   private primaryColor = '#1A5A4A';
   private primaryColorTransparent = 'rgba(26, 90, 74, 0.2)';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private titleService: Title, // Inject SEO Service
+    private metaService: Meta    // Inject Meta Service
+  ) {}
+
+  ngOnInit(): void {
+    // 1. SEO: Set Title
+    this.titleService.setTitle('Palmsure Insurance Brokers | Cape Town & Mthatha');
+
+    // 2. SEO: Set Description
+    this.metaService.updateTag({
+      name: 'description',
+      content: 'Palmsure provides reliable Personal, Business, and Vehicle insurance in Cape Town and Mthatha. Get a personalized quote from our expert brokers today.'
+    });
+
+    // 3. Open Graph (Social Sharing)
+    this.metaService.updateTag({ property: 'og:title', content: 'Palmsure Insurance Brokers' });
+    this.metaService.updateTag({ property: 'og:description', content: 'Trusted insurance solutions for you and your business.' });
+    this.metaService.updateTag({ property: 'og:url', content: 'https://www.palmsure.co.za/' });
+    this.metaService.updateTag({ property: 'og:type', content: 'website' });
+  }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {

@@ -1,38 +1,52 @@
-// Use ./ to ensure we look in src/assets
+// src/styles.scss
+
+// 1. Import Variables
 @use './assets/scss/variables' as v;
 @use 'sass:color';
 
-// --- Google Fonts Import ---
+// 2. Google Fonts (Performance: display=swap included)
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-// --- Global Resets & Base Styles ---
+// 3. Global Resets & Base Styles
+html {
+  scroll-behavior: smooth; // Smooth scrolling for anchor links
+}
+
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   background-color: v.$background-color;
   color: v.$text-color;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased; // Makes fonts look sharper on Mac
+  -moz-osx-font-smoothing: grayscale;
 }
 
-// Critical for the mobile menu
+// Critical helper for the mobile menu locking
 body.no-scroll {
   overflow: hidden !important;
 }
 
+// Global Links
 a {
   color: v.$secondary-color;
   text-decoration: none;
   transition: color 0.2s ease;
+  cursor: pointer;
+
   &:hover {
     text-decoration: none;
     color: color.adjust(v.$secondary-color, $lightness: -10%);
   }
 }
 
+// Global Layout Container
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 // --- Global Buttons ---
@@ -49,30 +63,50 @@ a {
   cursor: pointer;
   border: 1px solid transparent;
   gap: 8px;
+  white-space: nowrap; // Prevents button text wrapping
 
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }
 
 .btn-primary {
   background-color: v.$secondary-color;
   color: v.$white;
+  border: 1px solid v.$secondary-color;
 
   &:hover {
     background-color: color.adjust(v.$secondary-color, $lightness: -5%);
+    border-color: color.adjust(v.$secondary-color, $lightness: -5%);
   }
 }
 
 .btn-secondary {
   background-color: transparent;
   color: v.$primary-color;
-  border-color: v.$border-color;
+  border: 1px solid v.$border-color;
 
   &:hover {
     border-color: v.$primary-color;
     color: v.$primary-color;
     background-color: rgba(v.$primary-color, 0.05);
   }
+}
+
+// Utility: Screen Reader Only (For Accessibility/SEO)
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

@@ -5,6 +5,7 @@
     <div class="hero-background-gradient"></div>
     <div class="container">
       <div class="hero-content">
+        <!-- H1 is perfect for SEO -->
         <h1>Connecting You to Coverage That Truly Fits</h1>
         <p class="subtitle">Delivering tailored insurance solutions with unwavering commitment. We provide expert guidance and dedicated service to secure your peace of mind.</p>
         <div class="hero-cta-group">
@@ -27,13 +28,14 @@
   <section #statsSection class="stats-section section-padding">
     <div class="container stats-grid">
       <div class="chart-container card">
-        <h3>Claims Approval Rate 2023-2024</h3>
+        <!-- Changed to H2 for better structure -->
+        <h2>Claims Approval Rate 2023-2024</h2>
         <div class="chart-wrapper">
           <canvas #claimsChart></canvas>
         </div>
       </div>
       <div class="impact-container">
-        <h3>Our Impact in Numbers</h3>
+        <h2>Our Impact in Numbers</h2>
         <div class="impact-grid">
           <div class="impact-card card">
             <span class="material-symbols-outlined impact-icon">workspace_premium</span>
@@ -64,7 +66,7 @@
     </div>
   </section>
 
-  <!-- SOLUTIONS SECTION (LINKS FIXED HERE) -->
+  <!-- SOLUTIONS SECTION -->
   <section class="solutions-section section-padding">
     <div class="container">
       <h2 class="section-title">Insurance Solutions We Offer</h2>
@@ -73,27 +75,24 @@
         <!-- Property Card -->
         <div class="solution-card">
           <span class="material-symbols-outlined card-icon">home_work</span>
-          <h4>Property Insurance</h4>
+          <h3>Property Insurance</h3>
           <p>Comprehensive coverage for your home and belongings.</p>
-          <!-- FIXED: Now links to /services/property -->
           <a [routerLink]="['/services', 'property']" class="learn-more">Learn More &rarr;</a>
         </div>
 
         <!-- Vehicle Card -->
         <div class="solution-card">
           <span class="material-symbols-outlined card-icon">directions_car</span>
-          <h4>Vehicle Insurance</h4>
+          <h3>Vehicle Insurance</h3>
           <p>Protection for your personal and commercial vehicles.</p>
-          <!-- FIXED: Now links to /services/vehicle -->
           <a [routerLink]="['/services', 'vehicle']" class="learn-more">Learn More &rarr;</a>
         </div>
 
         <!-- Business Card -->
         <div class="solution-card">
           <span class="material-symbols-outlined card-icon">business_center</span>
-          <h4>Business Insurance</h4>
+          <h3>Business Insurance</h3>
           <p>Tailored solutions for your business needs.</p>
-          <!-- FIXED: Now links to /services/business -->
           <a [routerLink]="['/services', 'business']" class="learn-more">Learn More &rarr;</a>
         </div>
 
@@ -109,32 +108,32 @@
       <div class="features-grid">
         <div #featureCard class="feature-card">
           <span class="material-symbols-outlined feature-icon">support_agent</span>
-          <h4>24/7 Support</h4>
+          <h3>24/7 Support</h3>
           <p>Round-the-clock assistance for claims and emergencies.</p>
         </div>
         <div #featureCard class="feature-card">
           <span class="material-symbols-outlined feature-icon">groups</span>
-          <h4>Expert Team</h4>
+          <h3>Expert Team</h3>
           <p>Our experienced professionals bring years of industry knowledge.</p>
         </div>
         <div #featureCard class="feature-card">
           <span class="material-symbols-outlined feature-icon">bolt</span>
-          <h4>Fast Claims Processing</h4>
+          <h3>Fast Claims Processing</h3>
           <p>Quick and efficient claims handling with a high success rate.</p>
         </div>
         <div #featureCard class="feature-card">
           <span class="material-symbols-outlined feature-icon">tune</span>
-          <h4>Tailored Solutions</h4>
+          <h3>Tailored Solutions</h3>
           <p>Customized insurance packages that fit your unique needs.</p>
         </div>
         <div #featureCard class="feature-card">
           <span class="material-symbols-outlined feature-icon">handshake</span>
-          <h4>Trusted Partners</h4>
+          <h3>Trusted Partners</h3>
           <p>Access to a wide network of leading insurance providers.</p>
         </div>
         <div #featureCard class="feature-card">
           <span class="material-symbols-outlined feature-icon">important_devices</span>
-          <h4>Digital Services</h4>
+          <h3>Digital Services</h3>
           <p>Easy online access to your policy information and claims tracking.</p>
         </div>
       </div>
@@ -147,13 +146,14 @@
       <h2 class="section-title">Our Trusted Partners</h2>
       <p class="section-subtitle">We work with the best in the industry to bring you superior coverage.</p>
       <div class="partners-grid">
-        <div class="partner-logo"><img src="assets/images/vum-logo.png" alt="VUM Insurance"></div>
-        <div class="partner-logo"><img src="assets/images/momentum-logo.png" alt="Momentum"></div>
-        <div class="partner-logo"><img src="assets/images/sa-taxi-logo.png" alt="SA Taxi"></div>
-        <div class="partner-logo"><img src="assets/images/auto-and-general-logo.png" alt="Auto & General"></div>
-        <div class="partner-logo"><img src="assets/images/1st-for-women-logo.png" alt="1st for Women"></div>
-        <div class="partner-logo"><img src="assets/images/ctu-logo.png" alt="CTU"></div>
-        <div class="partner-logo"><img src="assets/images/felix-body-works-logo.png" alt="Felix Body Works"></div>
+        <!-- ADDED WIDTH/HEIGHT + ALT + LAZY LOADING FOR PERFORMANCE SCORE -->
+        <div class="partner-logo"><img src="assets/images/vum-logo.png" alt="VUM Insurance Logo" width="150" height="80" loading="lazy"></div>
+        <div class="partner-logo"><img src="assets/images/momentum-logo.png" alt="Momentum Logo" width="150" height="80" loading="lazy"></div>
+        <div class="partner-logo"><img src="assets/images/sa-taxi-logo.png" alt="SA Taxi Logo" width="150" height="80" loading="lazy"></div>
+        <div class="partner-logo"><img src="assets/images/auto-and-general-logo.png" alt="Auto and General Logo" width="150" height="80" loading="lazy"></div>
+        <div class="partner-logo"><img src="assets/images/1st-for-women-logo.png" alt="1st for Women Logo" width="150" height="80" loading="lazy"></div>
+        <div class="partner-logo"><img src="assets/images/ctu-logo.png" alt="CTU Insurance Logo" width="150" height="80" loading="lazy"></div>
+        <div class="partner-logo"><img src="assets/images/felix-body-works-logo.png" alt="Felix Body Works Logo" width="150" height="80" loading="lazy"></div>
       </div>
     </div>
   </section>

@@ -15,24 +15,24 @@ $brand-off-white: #F5F3EF;
 // 2. Semantic Application Colors
 // These are aliases we will use throughout the application for consistency.
 // --------------------------------------------------------------------------
-$primary-color: $brand-navy;
-$secondary-color: $brand-green;
-$accent-color: $brand-green; // Alias for clarity in different contexts
+$primary-color: $brand-navy;   // Used for Headings, Strong text
+$secondary-color: $brand-green; // Used for Buttons, Links, Highlights
+$accent-color: $brand-green;
 
 
-// 3. Neutral & Text Palette
-// For backgrounds, text, borders, and general UI.
+// 3. Neutral & Text Palette (UPDATED FOR ACCESSIBILITY)
 // --------------------------------------------------------------------------
 $white: #ffffff;
-$background-color: #fcfcfc;    // Main site background, clean and bright
-$gray-lightest: $brand-off-white; // For section backgrounds, provides warmth
-$gray-light: #e0e0e0;         // For light borders and dividers
-$text-color: #333333;           // Standard dark gray for body text
-$text-color-light: #666666;    // Lighter gray for subtitles and secondary text
+$background-color: #fcfcfc;
+$gray-lightest: $brand-off-white;
+$gray-light: #e0e0e0;
+
+// FIX: Darkened text colors to pass Lighthouse Contrast Ratio (AAA)
+$text-color: #1a202c;       // Very dark grey (almost black) instead of #333
+$text-color-light: #4a5568; // Dark slate grey instead of #666 (passes contrast checks)
 
 
 // 4. UI Component-Specific Colors
-// For cards, highlights, and interactive elements, based on the new UI benchmark.
 // --------------------------------------------------------------------------
-$card-background-light: #F4F7FA; // The very light blue-gray from the "Impact" cards
-$border-color: #DEE2E6;          // A standard, neutral border color for cards
+$card-background-light: #F4F7FA;
+$border-color: #DEE2E6;

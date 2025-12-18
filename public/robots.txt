@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap (If you have one, otherwise remove this line)
+# Sitemap: https://www.palmsure.co.za/sitemap.xml
