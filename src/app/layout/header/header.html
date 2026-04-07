@@ -1,40 +1,71 @@
-<header class="site-header" [class.scrolled]="isScrolled">
+<header class="site-header" [class.scrolled]="isScrolled" [class.menu-open]="isMobileMenuOpen">
   <div class="header-container">
 
-    <!-- 1. Brand / Logo -->
     <a routerLink="/" class="brand-logo" (click)="closeMobileMenu()">
       <span class="brand-text">Palmsure</span>
       <span class="brand-divider">|</span>
       <span class="brand-tagline">Insurance Brokers</span>
     </a>
 
-    <!-- 2. Navigation Wrapper (Desktop & Mobile Drawer) -->
     <div class="nav-wrapper" [class.is-open]="isMobileMenuOpen">
-
-      <!-- Dark Overlay -->
       <div class="nav-overlay" (click)="closeMobileMenu()"></div>
 
-      <nav class="main-nav">
-        <!-- Mobile Drawer Header (Hidden on Desktop) -->
+      <nav class="main-nav" id="mobile-navigation" aria-label="Main navigation">
         <div class="mobile-header-row">
           <h3>Menu</h3>
-          <button class="close-btn" (click)="closeMobileMenu()">
+          <button
+            class="close-btn"
+            (click)="closeMobileMenu()"
+            aria-label="Close menu"
+            type="button">
             <span class="material-symbols-outlined">close</span>
           </button>
         </div>
 
-        <!-- Links -->
         <ul>
-          <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMobileMenu()">Home</a></li>
-          <li><a routerLink="/about" routerLinkActive="active" (click)="closeMobileMenu()">About Us</a></li>
-          <li><a routerLink="/services" routerLinkActive="active" (click)="closeMobileMenu()">Our Solutions</a></li>
-          <li><a routerLink="/contact" routerLinkActive="active" (click)="closeMobileMenu()">Contact</a></li>
+          <li>
+            <a
+              routerLink="/"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="closeMobileMenu()">
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/about"
+              routerLinkActive="active"
+              (click)="closeMobileMenu()">
+              About Us
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/services"
+              routerLinkActive="active"
+              (click)="closeMobileMenu()">
+              Our Solutions
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/contact"
+              routerLinkActive="active"
+              (click)="closeMobileMenu()">
+              Contact
+            </a>
+          </li>
 
-          <!-- Mobile Only Actions -->
           <li class="mobile-only">
             <div class="mobile-actions">
               <a routerLink="/quote" class="btn btn-primary" (click)="closeMobileMenu()">Get a Quote</a>
-              <a href="https://berrysure.co.za/login" target="_blank" class="btn btn-secondary" (click)="closeMobileMenu()">
+              <a
+                href="https://berrysure.co.za/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-secondary"
+                (click)="closeMobileMenu()">
                 Client Portal
               </a>
             </div>
@@ -43,21 +74,32 @@
       </nav>
     </div>
 
-    <!-- 3. Desktop Actions (Hidden on Mobile) -->
     <div class="desktop-actions">
-      <a href="https://berrysure.co.za/login" target="_blank" class="link-login">
-        <span class="material-symbols-outlined">login</span> Portal
+      <a
+        href="https://berrysure.co.za/login"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link-login">
+        <span class="material-symbols-outlined">login</span>
+        Portal
       </a>
+
       <a routerLink="/quote" class="btn btn-primary">
         Get a Quote
       </a>
     </div>
 
-    <!-- 4. Mobile Hamburger Trigger -->
-    <button class="hamburger-menu" (click)="toggleMobileMenu()" aria-label="Toggle Menu">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
+    <button
+      class="hamburger-menu"
+      [class.is-open]="isMobileMenuOpen"
+      (click)="toggleMobileMenu()"
+      aria-label="Toggle menu"
+      [attr.aria-expanded]="isMobileMenuOpen"
+      aria-controls="mobile-navigation"
+      type="button">
+      <span class="bar top"></span>
+      <span class="bar middle"></span>
+      <span class="bar bottom"></span>
     </button>
 
   </div>

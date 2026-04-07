@@ -1,15 +1,19 @@
 // src/styles.scss
 
-// 1. Import Variables
 @use './assets/scss/variables' as v;
 @use 'sass:color';
 
-// 2. Google Fonts (Performance: display=swap included)
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-// 3. Global Resets & Base Styles
+// Global box sizing fix
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
-  scroll-behavior: smooth; // Smooth scrolling for anchor links
+  scroll-behavior: smooth;
 }
 
 body {
@@ -18,16 +22,14 @@ body {
   background-color: v.$background-color;
   color: v.$text-color;
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased; // Makes fonts look sharper on Mac
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-// Critical helper for the mobile menu locking
 body.no-scroll {
   overflow: hidden !important;
 }
 
-// Global Links
 a {
   color: v.$secondary-color;
   text-decoration: none;
@@ -40,16 +42,13 @@ a {
   }
 }
 
-// Global Layout Container
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
   width: 100%;
-  box-sizing: border-box;
 }
 
-// --- Global Buttons ---
 .btn {
   display: inline-flex;
   align-items: center;
@@ -63,11 +62,11 @@ a {
   cursor: pointer;
   border: 1px solid transparent;
   gap: 8px;
-  white-space: nowrap; // Prevents button text wrapping
+  white-space: nowrap;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   &:active {
@@ -98,7 +97,6 @@ a {
   }
 }
 
-// Utility: Screen Reader Only (For Accessibility/SEO)
 .sr-only {
   position: absolute;
   width: 1px;
