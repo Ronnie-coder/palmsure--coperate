@@ -1,137 +1,126 @@
 <main class="home-page">
 
-  <!-- HERO SECTION -->
+  <!-- 1. HERO SECTION -->
   <section class="hero-section">
-    <div class="hero-background-gradient"></div>
-    <div class="container">
+    <div class="container hero-container">
       <div class="hero-content">
-        <!-- H1 is perfect for SEO -->
-        <h1>Connecting You to Coverage That Truly Fits</h1>
-        <p class="subtitle">Delivering tailored insurance solutions with unwavering commitment. We provide expert guidance and dedicated service to secure your peace of mind.</p>
+
+        <div class="fsp-badge-hero">
+          <span class="material-symbols-outlined">verified_user</span>
+          AUTHORIZED FSP: 47156
+        </div>
+
+        <h1>Connecting You to Coverage That Truly Fits.</h1>
+
+        <p class="subtitle">
+          As your independent broker, we do the heavy lifting. We compare quotes across leading underwriters, handle your ongoing policy administration, and manage your claims for both personal and commercial assets.
+        </p>
+
         <div class="hero-cta-group">
-          <a routerLink="/about" class="btn btn-secondary">Learn More</a>
-          <a routerLink="/quote" class="btn btn-primary">Get a Quote</a>
+          <a routerLink="/quote" class="btn btn-primary btn-large">Get a Quote</a>
+          <a routerLink="/services" class="btn btn-outline btn-large">Explore Solutions</a>
         </div>
+      </div>
+
+      <div class="hero-animation">
+        <dotlottie-player src="https://lottie.host/b9362179-c3e3-41ec-8321-d9f22901cd64/SwvJmdMBJI.lottie" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></dotlottie-player>
       </div>
     </div>
   </section>
 
-  <!-- CREDIBILITY TICKER -->
-  <section class="credibility-bar">
-    <div class="container credibility-content">
-      <span>FSP License No: 47156</span>
-      <span class="credibility-text" [ngClass]="credibilityTextState">{{ currentPartnerPraise }}</span>
-    </div>
-  </section>
-
-  <!-- DATA & STATS SECTION -->
-  <section #statsSection class="stats-section section-padding">
-    <div class="container stats-grid">
-      <div class="chart-container card">
-        <!-- Changed to H2 for better structure -->
-        <h2>Claims Approval Rate 2023-2024</h2>
-        <div class="chart-wrapper">
-          <canvas #claimsChart></canvas>
-        </div>
-      </div>
-      <div class="impact-container">
-        <h2>Our Impact in Numbers</h2>
-        <div class="impact-grid">
-          <div class="impact-card card">
-            <span class="material-symbols-outlined impact-icon">workspace_premium</span>
-            <span class="impact-value">7+</span>
-            <div class="impact-text">
-              <span class="impact-title">Years of Excellence</span>
-              <p>Trusted solutions since 2016.</p>
-            </div>
-          </div>
-          <div class="impact-card card">
-            <span class="material-symbols-outlined impact-icon">receipt_long</span>
-            <span class="impact-value">1500+</span>
-            <div class="impact-text">
-              <span class="impact-title">Active Policies</span>
-              <p>Protecting what matters most.</p>
-            </div>
-          </div>
-          <div class="impact-card card">
-            <span class="material-symbols-outlined impact-icon">verified_user</span>
-            <span class="impact-value">99%</span>
-            <div class="impact-text">
-              <span class="impact-title">Claims Success</span>
-              <p>Fast, efficient processing.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SOLUTIONS SECTION -->
-  <section class="solutions-section section-padding">
+  <!-- 2. INFINITE TRUST MARQUEE -->
+  <section class="trust-strip">
     <div class="container">
-      <h2 class="section-title">Insurance Solutions We Offer</h2>
-      <div class="solutions-grid">
+      <p class="trust-label">Authorized intermediary for South Africa's leading underwriters</p>
+    </div>
+    <div class="marquee-wrapper">
+      <div class="marquee-track">
+        <!-- Set 1 -->
+        <img src="assets/images/vum-logo.png" alt="VUM" loading="lazy">
+        <img src="assets/images/momentum-logo.png" alt="Momentum" loading="lazy">
+        <img src="assets/images/sa-taxi-logo.png" alt="SA Taxi" loading="lazy">
+        <img src="assets/images/auto-and-general-logo.png" alt="Auto & General" loading="lazy">
+        <img src="assets/images/1st-for-women-logo.png" alt="1st for Women" loading="lazy">
 
-        <!-- Property Card -->
-        <div class="solution-card">
-          <span class="material-symbols-outlined card-icon">home_work</span>
-          <h3>Property Insurance</h3>
-          <p>Comprehensive coverage for your home and belongings.</p>
-          <a [routerLink]="['/services', 'property']" class="learn-more">Learn More &rarr;</a>
-        </div>
+        <!-- Set 2 (Duplicated for seamless loop) -->
+        <img src="assets/images/vum-logo.png" alt="VUM" loading="lazy">
+        <img src="assets/images/momentum-logo.png" alt="Momentum" loading="lazy">
+        <img src="assets/images/sa-taxi-logo.png" alt="SA Taxi" loading="lazy">
+        <img src="assets/images/auto-and-general-logo.png" alt="Auto & General" loading="lazy">
+        <img src="assets/images/1st-for-women-logo.png" alt="1st for Women" loading="lazy">
 
-        <!-- Vehicle Card -->
-        <div class="solution-card">
-          <span class="material-symbols-outlined card-icon">directions_car</span>
-          <h3>Vehicle Insurance</h3>
-          <p>Protection for your personal and commercial vehicles.</p>
-          <a [routerLink]="['/services', 'vehicle']" class="learn-more">Learn More &rarr;</a>
-        </div>
-
-        <!-- Business Card -->
-        <div class="solution-card">
-          <span class="material-symbols-outlined card-icon">business_center</span>
-          <h3>Business Insurance</h3>
-          <p>Tailored solutions for your business needs.</p>
-          <a [routerLink]="['/services', 'business']" class="learn-more">Learn More &rarr;</a>
-        </div>
-
+        <!-- Set 3 (Buffer for ultra-wide displays) -->
+        <img src="assets/images/vum-logo.png" alt="VUM" loading="lazy">
+        <img src="assets/images/momentum-logo.png" alt="Momentum" loading="lazy">
+        <img src="assets/images/sa-taxi-logo.png" alt="SA Taxi" loading="lazy">
+        <img src="assets/images/auto-and-general-logo.png" alt="Auto & General" loading="lazy">
+        <img src="assets/images/1st-for-women-logo.png" alt="1st for Women" loading="lazy">
       </div>
     </div>
   </section>
 
-  <!-- FEATURES (WHY US) -->
+  <!-- 3. GLASSMORPHIC IMPACT PILL -->
+  <section class="impact-section section-padding">
+    <div class="container">
+      <div class="impact-pill">
+        <div class="impact-pill-title">
+          <h2>Palmsure<br><span>Impact.</span></h2>
+        </div>
+        <div class="impact-pill-stats">
+          <div class="stat-item">
+            <div class="stat-value">
+              <span class="stat-number counter" data-target="1500">1500</span><span class="stat-suffix">+</span>
+            </div>
+            <span class="stat-label">Active Policies</span>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">
+              <span class="stat-number counter" data-target="99">99</span><span class="stat-suffix">%</span>
+            </div>
+            <span class="stat-label">Claims Success</span>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">
+              <span class="stat-number counter" data-target="7">7</span><span class="stat-suffix">+</span>
+            </div>
+            <span class="stat-label">Years Excellence</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. WHY CHOOSE US -->
   <section class="features-section section-padding">
     <div class="container">
       <h2 class="section-title">Why Our Clients Choose Us</h2>
-      <p class="section-subtitle">Experience the Palmsure difference</p>
       <div class="features-grid">
-        <div #featureCard class="feature-card">
+        <div class="feature-card">
           <span class="material-symbols-outlined feature-icon">support_agent</span>
           <h3>24/7 Support</h3>
           <p>Round-the-clock assistance for claims and emergencies.</p>
         </div>
-        <div #featureCard class="feature-card">
+        <div class="feature-card">
           <span class="material-symbols-outlined feature-icon">groups</span>
           <h3>Expert Team</h3>
           <p>Our experienced professionals bring years of industry knowledge.</p>
         </div>
-        <div #featureCard class="feature-card">
+        <div class="feature-card">
           <span class="material-symbols-outlined feature-icon">bolt</span>
-          <h3>Fast Claims Processing</h3>
+          <h3>Fast Claims</h3>
           <p>Quick and efficient claims handling with a high success rate.</p>
         </div>
-        <div #featureCard class="feature-card">
+        <div class="feature-card">
           <span class="material-symbols-outlined feature-icon">tune</span>
           <h3>Tailored Solutions</h3>
           <p>Customized insurance packages that fit your unique needs.</p>
         </div>
-        <div #featureCard class="feature-card">
+        <div class="feature-card">
           <span class="material-symbols-outlined feature-icon">handshake</span>
           <h3>Trusted Partners</h3>
           <p>Access to a wide network of leading insurance providers.</p>
         </div>
-        <div #featureCard class="feature-card">
+        <div class="feature-card">
           <span class="material-symbols-outlined feature-icon">important_devices</span>
           <h3>Digital Services</h3>
           <p>Easy online access to your policy information and claims tracking.</p>
@@ -140,37 +129,35 @@
     </div>
   </section>
 
-  <!-- PARTNERS -->
-  <section class="partners-section section-padding">
+  <!-- 5. SOLUTIONS SECTION -->
+  <section class="solutions-section section-padding">
     <div class="container">
-      <h2 class="section-title">Our Trusted Partners</h2>
-      <p class="section-subtitle">We work with the best in the industry to bring you superior coverage.</p>
-      <div class="partners-grid">
-        <!-- ADDED WIDTH/HEIGHT + ALT + LAZY LOADING FOR PERFORMANCE SCORE -->
-        <div class="partner-logo"><img src="assets/images/vum-logo.png" alt="VUM Insurance Logo" width="150" height="80" loading="lazy"></div>
-        <div class="partner-logo"><img src="assets/images/momentum-logo.png" alt="Momentum Logo" width="150" height="80" loading="lazy"></div>
-        <div class="partner-logo"><img src="assets/images/sa-taxi-logo.png" alt="SA Taxi Logo" width="150" height="80" loading="lazy"></div>
-        <div class="partner-logo"><img src="assets/images/auto-and-general-logo.png" alt="Auto and General Logo" width="150" height="80" loading="lazy"></div>
-        <div class="partner-logo"><img src="assets/images/1st-for-women-logo.png" alt="1st for Women Logo" width="150" height="80" loading="lazy"></div>
-        <div class="partner-logo"><img src="assets/images/ctu-logo.png" alt="CTU Insurance Logo" width="150" height="80" loading="lazy"></div>
-        <div class="partner-logo"><img src="assets/images/felix-body-works-logo.png" alt="Felix Body Works Logo" width="150" height="80" loading="lazy"></div>
+      <h2 class="section-title">Tailored Insurance Solutions</h2>
+      <div class="solutions-grid">
+        <a *ngFor="let service of services" [routerLink]="['/services', service.id]" class="solution-image-card" [style.background-image]="'url(' + service.image + ')'">
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+            <span class="learn-more">Explore Details &rarr;</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- TESTIMONIAL & CTA -->
-  <section class="testimonial-section section-padding">
-    <div class="container">
-      <blockquote>"Palmsure provided me with the best coverage I could ask for. Their team went above and beyond!"</blockquote>
-      <cite>- Satisfied Client</cite>
+  <!-- 6. TESTIMONIALS (THIS TAG WAS MISSING IN YOUR LAST PASTE) -->
+  <app-testimonials></app-testimonials>
+
+  <!-- 7. CTA SECTION -->
+  <section class="cta-section section-padding">
+    <div class="cta-parallax-bg" style="background-image: url('assets/images/bridge.jpg');"></div>
+    <div class="cta-overlay"></div>
+    <div class="container cta-container">
+      <h2>Ready to Get Covered?</h2>
+      <p>Chat with one of our insurance specialists today to find the perfect cover for your needs.</p>
+      <a routerLink="/quote" class="btn btn-primary btn-large">Request a Quote</a>
     </div>
   </section>
 
-  <section class="cta-section section-padding">
-    <div class="container">
-      <h2>Ready to Get Covered?</h2>
-      <p>Contact us today for a free consultation.</p>
-      <a routerLink="/quote" class="btn btn-primary">Get a Quote</a>
-    </div>
-  </section>
 </main>

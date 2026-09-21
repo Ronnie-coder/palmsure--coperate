@@ -1,84 +1,84 @@
-import { Component, AfterViewInit, OnDestroy, ElementRef, QueryList, ViewChildren, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, AfterViewInit, PLATFORM_ID, OnInit, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { Title, Meta } from '@angular/platform-browser';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Define the shape of our data
-type ServiceOffering = {
+interface ServiceOffering {
   id: string;
-  icon: string;
+  image: string;
   title: string;
-  description: string;
-};
+}
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterModule],
   templateUrl: './services.html',
-  // FIXED: Changed to plural 'styleUrls' for safety
-  styleUrls: ['./services.scss']
+  styleUrls: ['./services.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class Services implements AfterViewInit, OnDestroy {
-  // Element references for scroll animations
-  @ViewChildren('serviceCard', { read: ElementRef }) serviceCards!: QueryList<ElementRef<HTMLElement>>;
-  @ViewChildren('offeringItem', { read: ElementRef }) offeringItems!: QueryList<ElementRef<HTMLElement>>;
-
-  private observer: IntersectionObserver | undefined;
+export class Services implements OnInit, AfterViewInit {
+  private platformId = inject(PLATFORM_ID);
+  private titleService = inject(Title);
+  private metaService = inject(Meta);
 
   services: ServiceOffering[] = [
-    {
-      id: 'property',
-      icon: 'home_work',
-      title: 'Property Insurance',
-      description: 'Comprehensive coverage for your residential and commercial properties against fire, theft, and natural disasters.'
-    },
-    {
-      id: 'vehicle',
-      icon: 'directions_car',
-      title: 'Vehicle Insurance',
-      description: 'Reliable protection for personal and fleet vehicles, ensuring you stay mobile with minimal downtime.'
-    },
-    {
-      id: 'business',
-      icon: 'business_center',
-      title: 'Business Insurance',
-      description: 'Tailored liability and asset protection solutions to safeguard your business continuity.'
-    },
-    {
-      id: 'personal',
-      icon: 'person',
-      title: 'Personal Insurance',
-      description: 'Secure your personal valuables, devices, and lifestyle with our specialized insurance products.'
-    }
+    { id: 'personal', image: 'assets/images/service-personal.jpg', title: 'Personal Insurance' },
+    { id: 'property', image: 'assets/images/service-property.jpg', title: 'Property Insurance' },
+    { id: 'vehicle', image: 'assets/images/service-vehicle.jpg', title: 'Vehicle Insurance' },
+    { id: 'business', image: 'assets/images/service-business.jpg', title: 'Business Insurance' }
   ];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  ngOnInit(): void {
+    this.titleService.setTitle('Our Solutions | Palmsure Insurance Brokers');
+    this.metaService.updateTag({ name: 'description', content: 'Comprehensive insurance solutions tailored to protect what matters most to you.' });
+  }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.initializeObserver();
+      gsap.registerPlugin(ScrollTrigger);
+      setTimeout(() => {
+        this.initGSAPAnimations();
+      }, 200);
     }
   }
 
-  private initializeObserver(): void {
-    const options = { threshold: 0.2 };
+  private initGSAPAnimations(): void {
+    gsap.fromTo('.hero-content > *',
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.1 }
+    );
 
-    this.observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, options);
+    gsap.to('.hero-animation', {
+      yPercent: 15, ease: 'none',
+      scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: 0.5 }
+    });
 
-    this.serviceCards.forEach(card => this.observer?.observe(card.nativeElement));
-    this.offeringItems.forEach(item => this.observer?.observe(item.nativeElement));
-  }
+    gsap.fromTo('.service-image-card',
+      { y: 50, opacity: 0 },
+      { scrollTrigger: { trigger: '.core-services-section', start: 'top 80%', once: true }, y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out' }
+    );
 
-  ngOnDestroy(): void {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
+    gsap.fromTo('.offering-item',
+      { x: -30, opacity: 0 },
+      { scrollTrigger: { trigger: '.core-offerings-section', start: 'top 80%', once: true }, x: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out' }
+    );
+
+    gsap.fromTo('.offerings-image',
+      { scale: 1.1 },
+      { scrollTrigger: { trigger: '.core-offerings-section', start: 'top bottom', end: 'bottom top', scrub: true }, scale: 1, ease: 'none' }
+    );
+
+    gsap.fromTo('.feature-card',
+      { y: 40, opacity: 0 },
+      { scrollTrigger: { trigger: '.why-choose-us-section', start: 'top 85%', once: true }, y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power2.out' }
+    );
+
+    gsap.to('.cta-parallax-bg', {
+      yPercent: 20, ease: 'none',
+      scrollTrigger: { trigger: '.cta-section', start: 'top bottom', end: 'bottom top', scrub: 0.5 }
+    });
   }
 }

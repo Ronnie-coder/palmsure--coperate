@@ -1,116 +1,105 @@
 @use '../../../assets/scss/variables' as v;
 @use 'sass:color';
 
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes animatedGradient {
-  0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
-}
-
 :host { display: block; background-color: v.$background-color; color: v.$text-color; }
 .content-wrapper { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+.section-padding { padding: 4rem 0; }
 
-// --- Hero Section ---
+// --- 1. Hero Section ---
 .hero-section {
-  position: relative; background-color: v.$gray-lightest; text-align: center; overflow: hidden; padding: 4rem 0;
+  background-color: v.$primary-color;
+  padding: 10rem 0 5rem 0;
+  overflow: hidden;
 
-  .hero-background-gradient {
-    position: absolute; inset: 0;
-    background: linear-gradient(60deg, v.$gray-lightest, #ececec, v.$gray-lightest);
-    background-size: 200% 200%;
-    animation: animatedGradient 18s ease infinite;
-    z-index: 1;
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
-  .content-wrapper { position: relative; z-index: 2; padding-top: 2rem; padding-bottom: 2rem; }
+  .hero-content {
+    h1 { font-size: 4.5rem; font-weight: 800; color: v.$white; margin-bottom: 1.5rem; letter-spacing: -1px; line-height: 1.15; }
+    .subtitle { font-size: 1.25rem; color: rgba(v.$white, 0.85); line-height: 1.6; }
+  }
 
-  & > * { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
-
-  h1 { font-size: 3.5rem; color: v.$primary-color; margin-bottom: 1rem; font-weight: 800; animation-delay: 0.1s; }
-  .subtitle { font-size: 1.25rem; color: v.$text-color-light; animation-delay: 0.3s; }
+  .hero-animation {
+    width: 100%;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
-// --- Contact Grid ---
-.contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+// --- 2. Contact Grid ---
+.main-content-section { background-color: v.$gray-lightest; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start; }
 
 .info-panel {
-  h2 { font-size: 1.8rem; color: v.$primary-color; margin-bottom: 1.5rem; margin-top: 0; &.sub-heading { margin-top: 2.5rem; } }
-  .info-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
-  .material-symbols-outlined { font-size: 1.75rem; color: v.$secondary-color; margin-top: 0.25rem; }
+  h2 { font-size: 2rem; color: v.$primary-color; margin-bottom: 2rem; margin-top: 0; font-weight: 800; &.sub-heading { margin-top: 3.5rem; } }
+  .info-item { display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 1.5rem; }
+  .material-symbols-outlined { font-size: 2rem; color: v.$secondary-color; margin-top: 0.15rem; }
   .info-item-content { display: flex; flex-direction: column; }
-  strong { color: v.$primary-color; font-weight: 700; margin-bottom: 0.25rem; }
-  address, a { font-size: 1rem; line-height: 1.6; color: v.$text-color-light; font-style: normal; }
-  a { text-decoration: none; transition: color 0.2s; &:hover { color: v.$secondary-color; text-decoration: underline; } }
+  strong { color: v.$primary-color; font-weight: 700; margin-bottom: 0.25rem; font-size: 1.1rem; }
+  address, a { font-size: 1.05rem; line-height: 1.6; color: v.$text-color; font-style: normal; }
+  a { text-decoration: none; transition: color 0.2s; font-weight: 500; &:hover { color: v.$secondary-color; } }
 }
 
-// --- Form Panel ---
+// --- 3. Form Panel ---
 .form-panel {
-  background-color: v.$white; padding: 2.5rem; border-radius: 12px; border: 1px solid v.$border-color;
-  box-shadow: 0 15px 35px rgba(v.$primary-color, 0.05);
-  h2 { font-size: 2rem; color: v.$primary-color; margin-top: 0; margin-bottom: 0.5rem; }
-  > p { margin-bottom: 2rem; color: v.$text-color-light; }
+  background-color: v.$white; padding: 3.5rem; border-radius: 16px; border: 1px solid v.$border-color;
+  box-shadow: 0 20px 40px rgba(v.$primary-color, 0.08); border-top: 4px solid v.$secondary-color;
+
+  h2 { font-size: 2.2rem; color: v.$primary-color; margin-top: 0; margin-bottom: 0.5rem; font-weight: 800; }
+  > p { margin-bottom: 2.5rem; color: v.$text-color-light; font-size: 1.05rem; }
 }
 
 .contact-form {
   .form-field { margin-bottom: 1.5rem; }
-  label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: v.$primary-color; }
+  label { display: block; font-weight: 700; margin-bottom: 0.5rem; color: v.$primary-color; font-size: 0.95rem; }
   input, textarea {
-    width: 100%; padding: 0.8rem 1rem; border: 1px solid v.$border-color; border-radius: 6px; font-size: 1rem;
-    font-family: inherit; transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    &:focus { outline: none; border-color: v.$secondary-color; box-shadow: 0 0 0 3px rgba(v.$secondary-color, 0.2); }
+    width: 100%; padding: 1rem 1.25rem; border: 1px solid v.$border-color; border-radius: 8px; font-size: 1rem;
+    font-family: inherit; transition: all 0.3s ease; background-color: v.$gray-lightest;
+    &:focus { outline: none; border-color: v.$secondary-color; background-color: v.$white; box-shadow: 0 0 0 4px rgba(v.$secondary-color, 0.15); }
   }
   textarea { resize: vertical; }
 }
 
 .submit-button {
-  width: 100%; padding: 1rem; background-color: v.$secondary-color; color: v.$white; border: none; border-radius: 6px;
-  font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
-  &:hover:not(:disabled) { background-color: color.adjust(v.$secondary-color, $lightness: -5%); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(v.$primary-color, 0.2); }
-  &:disabled { background-color: v.$gray-light; color: v.$text-color-light; cursor: not-allowed; }
+  width: 100%; padding: 1.1rem; background-color: v.$secondary-color; color: v.$white; border: none; border-radius: 8px;
+  font-size: 1.15rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; margin-top: 1rem;
+  &:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(v.$secondary-color, 0.3); }
+  &:disabled { background-color: v.$border-color; color: v.$text-color-light; cursor: not-allowed; box-shadow: none; transform: none; }
 }
 
-.form-disclaimer { font-size: 0.85rem; color: v.$text-color-light; text-align: center; margin-top: 1rem; }
+.form-disclaimer { font-size: 0.85rem; color: v.$text-color-light; text-align: center; margin-top: 1.5rem; }
 
-// --- Map Section ---
+// --- 4. Map Section ---
 .map-section {
-  padding: 2rem 0 6rem 0;
-  max-width: 1200px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem;
+  padding: 4rem 0 8rem 0; max-width: 1200px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem; background-color: v.$gray-lightest;
 
-  .map-tabs {
-    display: flex;
-    position: relative;
-    z-index: 2; // Sit above the map border
-  }
+  .map-tabs { display: flex; position: relative; z-index: 2; }
 
   .map-tab-button {
-    padding: 1rem 2rem;
-    font-size: 1rem; font-weight: 600;
-    border: 1px solid v.$border-color;
-    border-bottom: 1px solid v.$border-color; // Default state
-    background-color: v.$gray-lightest;
-    color: v.$text-color-light;
-    cursor: pointer;
-    border-radius: 8px 8px 0 0;
-    margin-right: 0.5rem;
-    transition: all 0.2s ease;
+    padding: 1.25rem 2.5rem; font-size: 1.05rem; font-weight: 600;
+    border: 1px solid v.$border-color; border-bottom: 1px solid v.$border-color;
+    background-color: color.adjust(v.$gray-lightest, $lightness: -3%); color: v.$text-color-light;
+    cursor: pointer; border-radius: 12px 12px 0 0; margin-right: 0.5rem; transition: all 0.2s ease;
 
     &.active {
-      background-color: v.$white;
-      color: v.$primary-color;
-      border-bottom: 1px solid v.$white; // Hides the border below it
-      margin-bottom: -1px; // Pulls it down to overlap the container border
-      font-weight: 700;
+      background-color: v.$white; color: v.$primary-color;
+      border-bottom: 1px solid v.$white; margin-bottom: -1px; font-weight: 800;
     }
+    &:hover:not(.active) { background-color: v.$white; }
   }
 
   .map-container {
-    aspect-ratio: 16 / 7;
-    border: 1px solid v.$border-color;
-    border-radius: 0 8px 8px 8px;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(v.$primary-color, 0.08);
-    position: relative;
-    z-index: 1;
-    background-color: v.$white;
+    aspect-ratio: 16 / 7; border: 1px solid v.$border-color; border-radius: 0 12px 12px 12px;
+    overflow: hidden; box-shadow: 0 15px 35px rgba(v.$primary-color, 0.08);
+    position: relative; z-index: 1; background-color: v.$white;
   }
 
   .map-iframe-wrapper { width: 100%; height: 100%; }
@@ -119,10 +108,32 @@
 
 // --- Responsive ---
 @media (max-width: 992px) {
-  .contact-grid { grid-template-columns: 1fr; }
+  .hero-section {
+    padding: 8rem 0 4rem 0;
+  }
+  .hero-section .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+    padding-top: 2rem;
+  }
+  .hero-section .hero-animation {
+    height: 350px; // Scaled down to fit below text nicely
+  }
+  .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
+  .form-panel { padding: 2.5rem; }
 }
+
 @media (max-width: 768px) {
-  .hero-section h1 { font-size: 2.5rem; }
-  .form-panel { padding: 1.5rem; }
+  .hero-section {
+    padding: 7rem 0 3rem 0;
+  }
+  .hero-section h1 { font-size: 3rem; }
+  .hero-section .hero-animation {
+    height: 250px; // Further scaled down for mobile screens
+  }
   .content-wrapper { padding: 3rem 1.5rem; }
+  .form-panel { padding: 1.5rem; }
+  .map-tab-button { padding: 1rem 1.25rem; font-size: 0.95rem; }
+  .map-section .map-container { aspect-ratio: 1 / 1; }
 }

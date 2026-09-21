@@ -1,0 +1,60 @@
+@use '../../../assets/scss/variables' as v;
+@use '../statutory-disclosures/statutory-disclosures.scss';
+
+.action-box {
+  background: v.$card-background-light;
+  padding: 1.25rem;
+  border-radius: 6px;
+  border-left: 4px solid v.$secondary-color;
+  margin-top: 1rem;
+
+  p { margin-bottom: 0.25rem; }
+  .email-link {
+    color: v.$secondary-color;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+
+  .timeline-step {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+
+    .step-number {
+      background: v.$secondary-color;
+      color: v.$white;
+      font-weight: 700;
+      min-width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      background: v.$card-background-light;
+      padding: 1.25rem;
+      border-radius: 6px;
+      flex-grow: 1;
+
+      h3 { color: v.$primary-color; margin: 0 0 0.4rem 0; font-size: 1.1rem; }
+      p { margin: 0; font-size: 0.95rem; }
+    }
+  }
+}
+
+.error-border {
+  border-left: 4px solid #ef4444 !important;
+  h2 { color: #ef4444 !important; }
+}

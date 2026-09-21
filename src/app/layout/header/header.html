@@ -1,73 +1,51 @@
 <header class="site-header" [class.scrolled]="isScrolled" [class.menu-open]="isMobileMenuOpen">
   <div class="header-container">
 
-    <a routerLink="/" class="brand-logo" (click)="closeMobileMenu()">
-      <span class="brand-text">Palmsure</span>
-      <span class="brand-divider">|</span>
-      <span class="brand-tagline">Insurance Brokers</span>
+    <a routerLink="/" class="brand-logo" (click)="closeMobileMenu()" (mouseenter)="hoverLogo()" (mouseleave)="resetLogo()">
+      <div class="logo-mark" #palmIcon>
+        <img src="assets/images/palm-logo.svg" alt="Palmsure Logo" class="palm-img">
+      </div>
+      <div class="brand-text-group">
+        <span class="brand-text">Palmsure</span>
+        <span class="brand-tagline">Insurance Brokers</span>
+      </div>
     </a>
 
-    <div class="nav-wrapper" [class.is-open]="isMobileMenuOpen">
+    <div class="nav-wrapper" [class.is-open]="isMobileMenuOpen" [class.nav-hidden]="isScrolled">
       <div class="nav-overlay" (click)="closeMobileMenu()"></div>
 
       <nav class="main-nav" id="mobile-navigation" aria-label="Main navigation">
         <div class="mobile-header-row">
-          <h3>Menu</h3>
-          <button
-            class="close-btn"
-            (click)="closeMobileMenu()"
-            aria-label="Close menu"
-            type="button">
+          <!-- Replaced "Menu" text with the Logo -->
+          <div class="mobile-brand">
+            <img src="assets/images/palm-logo.svg" alt="Palmsure Logo" class="mobile-palm-img">
+            <span class="mobile-brand-text">Palmsure</span>
+          </div>
+          <button class="close-btn" (click)="closeMobileMenu()" aria-label="Close menu" type="button">
             <span class="material-symbols-outlined">close</span>
           </button>
         </div>
 
-        <ul>
-          <li>
-            <a
-              routerLink="/"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="closeMobileMenu()">
-              Home
-            </a>
+        <ul #navContainer>
+          <div class="gliding-highlight" [ngStyle]="selectorStyle"></div>
+
+          <li #navItem routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/" (click)="closeMobileMenu()">Home</a>
           </li>
-          <li>
-            <a
-              routerLink="/about"
-              routerLinkActive="active"
-              (click)="closeMobileMenu()">
-              About Us
-            </a>
+          <li #navItem routerLinkActive="active">
+            <a routerLink="/about" (click)="closeMobileMenu()">About Us</a>
           </li>
-          <li>
-            <a
-              routerLink="/services"
-              routerLinkActive="active"
-              (click)="closeMobileMenu()">
-              Our Solutions
-            </a>
+          <li #navItem routerLinkActive="active">
+            <a routerLink="/services" (click)="closeMobileMenu()">Our Solutions</a>
           </li>
-          <li>
-            <a
-              routerLink="/contact"
-              routerLinkActive="active"
-              (click)="closeMobileMenu()">
-              Contact
-            </a>
+          <li #navItem routerLinkActive="active">
+            <a routerLink="/contact" (click)="closeMobileMenu()">Contact</a>
           </li>
 
           <li class="mobile-only">
             <div class="mobile-actions">
               <a routerLink="/quote" class="btn btn-primary" (click)="closeMobileMenu()">Get a Quote</a>
-              <a
-                href="https://berrysure.co.za/login"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn btn-secondary"
-                (click)="closeMobileMenu()">
-                Client Portal
-              </a>
+              <a href="https://berrysure.co.za/login" target="_blank" class="btn btn-secondary" (click)="closeMobileMenu()">Client Portal</a>
             </div>
           </li>
         </ul>
@@ -75,28 +53,13 @@
     </div>
 
     <div class="desktop-actions">
-      <a
-        href="https://berrysure.co.za/login"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="link-login">
-        <span class="material-symbols-outlined">login</span>
-        Portal
+      <a href="https://berrysure.co.za/login" target="_blank" class="link-login" [class.nav-hidden]="isScrolled">
+        <span class="material-symbols-outlined">login</span> Portal
       </a>
-
-      <a routerLink="/quote" class="btn btn-primary">
-        Get a Quote
-      </a>
+      <a routerLink="/quote" class="btn btn-primary cta-btn">Get Started</a>
     </div>
 
-    <button
-      class="hamburger-menu"
-      [class.is-open]="isMobileMenuOpen"
-      (click)="toggleMobileMenu()"
-      aria-label="Toggle menu"
-      [attr.aria-expanded]="isMobileMenuOpen"
-      aria-controls="mobile-navigation"
-      type="button">
+    <button class="hamburger-menu" [class.is-open]="isMobileMenuOpen" (click)="toggleMobileMenu()" aria-label="Toggle menu" type="button">
       <span class="bar top"></span>
       <span class="bar middle"></span>
       <span class="bar bottom"></span>

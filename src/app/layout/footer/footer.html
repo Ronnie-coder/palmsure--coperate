@@ -3,8 +3,12 @@
 
     <!-- Column 1: Brand & FSP -->
     <div class="footer-column brand-column">
-      <h3 class="footer-brand">Palmsure</h3>
-      <p class="tagline">Your trusted insurance partner.</p>
+      <div class="footer-brand-wrapper">
+        <img src="assets/images/palm-logo.svg" alt="Palmsure Logo" class="footer-palm-img">
+        <h3 class="footer-brand">Palmsure <br>Insurance Brokers</h3>
+      </div>
+      <p class="tagline">Your trusted independent insurance partner.</p>
+
       <div class="fsp-badge">
         <span class="material-symbols-outlined">verified_user</span>
         <span>FSP License: 47156</span>
@@ -18,13 +22,23 @@
         <li><a routerLink="/" fragment="top">Home</a></li>
         <li><a routerLink="/about">About Us</a></li>
         <li><a routerLink="/services">Our Solutions</a></li>
+        <li><a routerLink="/quote">Get a Quote</a></li>
         <li><a routerLink="/contact">Contact Us</a></li>
-        <!-- FOOTER LINK: Updated Here -->
-        <li><a href="https://berrysure.co.za/login" target="_blank">Client Portal</a></li>
       </ul>
     </div>
 
-    <!-- Column 3: Contact -->
+    <!-- Column 3: Regulatory Docs (PDF Downloads) -->
+    <div class="footer-column">
+      <h4>Regulatory Docs</h4>
+      <ul>
+        <li><a href="assets/docs/statutory-disclosure.pdf" target="_blank" rel="noopener noreferrer">Statutory Disclosures</a></li>
+        <li><a href="assets/docs/complaints-policy.pdf" target="_blank" rel="noopener noreferrer">Complaints Procedure</a></li>
+        <li><a href="assets/docs/conflict-of-interest.pdf" target="_blank" rel="noopener noreferrer">Conflict of Interest</a></li>
+        <li><a href="assets/docs/privacy-policy.pdf" target="_blank" rel="noopener noreferrer">PAIA / POPIA Manual</a></li>
+      </ul>
+    </div>
+
+    <!-- Column 4: Contact & Branches -->
     <div class="footer-column contact-column">
       <h4>Get in Touch</h4>
       <address>
@@ -33,14 +47,28 @@
           <a href="tel:0216998370">021 699 8370</a>
         </div>
         <div class="contact-item">
+          <span class="material-symbols-outlined">forum</span>
+          <a href="https://wa.me/27761865820" target="_blank" rel="noopener noreferrer">WhatsApp: 076 186 5820</a>
+        </div>
+        <div class="contact-item">
           <span class="material-symbols-outlined">mail</span>
           <a href="mailto:info@palmsure.co.za">info@palmsure.co.za</a>
         </div>
         <div class="contact-item">
           <span class="material-symbols-outlined">location_on</span>
-          <span>Cape Town, South Africa</span>
+          <span><strong>Head Office:</strong> 1 Reen Ave, Athlone, Cape Town</span>
+        </div>
+        <div class="contact-item">
+          <span class="material-symbols-outlined">storefront</span>
+          <span><strong>Branch:</strong> Mthatha, Eastern Cape</span>
         </div>
       </address>
+
+      <!-- BerrySure Portal Button -->
+      <a href="https://berrysure.co.za/login" target="_blank" rel="noopener noreferrer" class="portal-btn">
+        <span class="material-symbols-outlined">login</span>
+        Client Portal Login
+      </a>
     </div>
 
   </div>
@@ -52,7 +80,7 @@
         <nav class="legal-links">
           <a routerLink="/terms-of-service">Terms of Service</a>
           <span class="divider">|</span>
-          <a routerLink="/privacy-policy">Privacy Policy</a>
+          <a href="assets/docs/privacy-policy.pdf" target="_blank" rel="noopener noreferrer">Privacy Policy (POPIA)</a>
         </nav>
       </div>
       <div class="developer-credit">

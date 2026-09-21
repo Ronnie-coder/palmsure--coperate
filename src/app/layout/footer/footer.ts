@@ -10,5 +10,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './footer.scss'
 })
 export class Footer {
-  currentYear = new Date().getFullYear();
+  // Dynamic getter evaluates at runtime to ensure the current year is always live
+  get currentYear(): number {
+    return new Date().getFullYear();
+  }
 }

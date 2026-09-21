@@ -1,13 +1,12 @@
 @use 'sass:color';
-// Ensure this path matches your folder structure: src/app/layout/footer -> src/assets
 @use '../../../assets/scss/variables' as v;
 
 .site-footer {
-  background-color: v.$primary-color; // Brand Navy
+  background-color: v.$primary-color;
   color: rgba(v.$white, 0.85);
   padding-top: 4.5rem;
   font-size: 0.95rem;
-  border-top: 4px solid v.$secondary-color; // Brand Green accent
+  border-top: 4px solid v.$secondary-color;
 }
 
 .footer-container {
@@ -15,11 +14,10 @@
   margin: 0 auto;
   padding: 0 1.5rem 4rem 1.5rem;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
-  gap: 3rem;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 2.5rem;
 }
 
-// --- Columns ---
 .footer-column {
   h4 {
     color: v.$white;
@@ -57,7 +55,7 @@
     transition: all 0.2s ease;
     &:hover {
       color: v.$secondary-color;
-      padding-left: 5px; // Subtle movement on hover
+      padding-left: 5px;
     }
   }
 
@@ -67,17 +65,32 @@
   }
 }
 
-// --- Brand Specifics ---
 .brand-column {
-  .footer-brand {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: v.$white;
-    margin: 0 0 0.5rem 0;
-    letter-spacing: -0.5px;
+  .footer-brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0.5rem;
+
+    .footer-palm-img {
+      width: 45px;
+      height: 45px;
+      filter: brightness(0) invert(1);
+      opacity: 0.95;
+    }
+
+    .footer-brand {
+      font-size: 1.3rem; // Reduced slightly to accommodate the longer text beautifully
+      font-weight: 800;
+      color: v.$white;
+      margin: 0;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
   }
+
   .tagline {
-    font-size: 1rem;
+    font-size: 0.95rem;
     margin-bottom: 1.5rem;
     color: rgba(v.$white, 0.6);
   }
@@ -98,28 +111,46 @@
   }
 }
 
-// --- Contact Icons ---
 .contact-item {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  align-items: flex-start;
+  gap: 0.75rem;
   margin-bottom: 1rem;
 
   .material-symbols-outlined {
     color: v.$secondary-color;
     font-size: 1.3rem;
+    margin-top: 2px;
   }
 
-  a {
-    color: rgba(v.$white, 0.85);
-    &:hover { padding-left: 0; color: v.$white; }
+  a, span { color: rgba(v.$white, 0.85); }
+  a:hover { padding-left: 0; color: v.$white; }
+}
+
+.portal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: v.$secondary-color;
+  color: v.$white !important;
+  font-weight: 700;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: color.adjust(v.$secondary-color, $lightness: 10%);
+    padding-left: 0;
   }
 }
 
-// --- Bottom Bar (Full Width Fix) ---
 .footer-bottom-bar {
   width: 100%;
-  background-color: color.adjust(v.$primary-color, $blackness: 15%); // Darker shade
+  background-color: color.adjust(v.$primary-color, $blackness: 15%);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: 1.5rem 0;
 }
@@ -150,7 +181,7 @@
     color: rgba(v.$white, 0.5);
     text-decoration: none;
     transition: color 0.2s;
-    &:hover { color: v.$white; }
+    &:hover { color: v.$white; padding-left: 0; }
   }
   .divider { margin: 0 0.5rem; opacity: 0.3; }
 }
@@ -159,26 +190,36 @@
   color: rgba(v.$white, 0.7);
   font-weight: 600;
   text-decoration: none;
-  &:hover { color: v.$secondary-color; }
+  &:hover { color: v.$secondary-color; padding-left: 0; }
 }
 
-// --- Responsive ---
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .footer-container {
-    grid-template-columns: 1fr 1fr; // 2 columns
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
   }
 }
 
 @media (max-width: 600px) {
   .footer-container {
-    grid-template-columns: 1fr; // Stacked
+    grid-template-columns: 1fr;
     gap: 2.5rem;
     text-align: center;
   }
 
   .footer-column h4::after {
     left: 50%;
-    transform: translateX(-50%); // Center the underline
+    transform: translateX(-50%);
+  }
+
+  .brand-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .footer-brand-wrapper {
+      justify-content: center;
+    }
   }
 
   .contact-item {

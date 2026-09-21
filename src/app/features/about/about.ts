@@ -1,79 +1,66 @@
-import { Component, AfterViewInit, OnDestroy, ElementRef, ViewChild, ViewChildren, QueryList, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, PLATFORM_ID, OnInit, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { Title, Meta } from '@angular/platform-browser';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './about.html',
-  // FIXED: Using 'styleUrls' (plural) ensures compatibility
-  styleUrls: ['./about.scss']
+  styleUrls: ['./about.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class About implements AfterViewInit, OnDestroy {
-  @ViewChild('metricsSection') metricsSection!: ElementRef<HTMLElement>;
-  @ViewChildren('metricValue') metricValues!: QueryList<ElementRef<HTMLSpanElement>>;
+export class About implements OnInit, AfterViewInit {
+  private platformId = inject(PLATFORM_ID);
+  private titleService = inject(Title);
+  private metaService = inject(Meta);
+  private el = inject(ElementRef);
 
-  private observer: IntersectionObserver | undefined;
-
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  ngOnInit(): void {
+    this.titleService.setTitle('Our Story | Palmsure Insurance Brokers');
+    this.metaService.updateTag({ name: 'description', content: 'Founded in 2016, Palmsure Insurance Brokers has evolved into a comprehensive insurance powerhouse.' });
+  }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.initializeObserver();
+      gsap.registerPlugin(ScrollTrigger);
+      setTimeout(() => {
+        this.initGSAPAnimations();
+        this.initCounterAnimations();
+      }, 200);
     }
   }
 
-  private initializeObserver(): void {
-    const options = { threshold: 0.5 };
+  private initGSAPAnimations(): void {
+    gsap.fromTo('.hero-content > *', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.1 });
+    gsap.fromTo('.impact-pill', { y: 50, opacity: 0 }, { scrollTrigger: { trigger: '.impact-section', start: 'top 85%', once: true }, y: 0, opacity: 1, duration: 1, ease: 'power3.out' });
 
-    this.observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          this.metricsSection.nativeElement.classList.add('is-visible');
-          this.animateMetricNumbers();
-          observer.unobserve(entry.target);
-        }
-      });
-    }, options);
-
-    this.observer.observe(this.metricsSection.nativeElement);
-  }
-
-  private animateMetricNumbers(): void {
-    this.metricValues.forEach(elRef => {
-      const element = elRef.nativeElement;
-      const originalText = element.textContent || '0';
-      const targetValue = parseFloat(originalText.replace(/[^0-9.]/g, ''));
-      const suffix = originalText.replace(/[0-9.]/g, '');
-
-      this.countUp(element, targetValue, suffix);
+    gsap.to('.parallax-bg', {
+      yPercent: 15,
+      ease: 'none',
+      scrollTrigger: { trigger: '.founder-card', start: 'top bottom', end: 'bottom top', scrub: 0.5 }
     });
+
+    gsap.fromTo('.mission-block', { y: 30 }, { scrollTrigger: { trigger: '.mission-vision-section', start: 'top bottom', end: 'bottom top', scrub: 0.5 }, y: -30, ease: 'none' });
+    gsap.fromTo('.vision-block', { y: 60 }, { scrollTrigger: { trigger: '.mission-vision-section', start: 'top bottom', end: 'bottom top', scrub: 0.5 }, y: -60, ease: 'none' });
+    gsap.fromTo('.team-member-card', { y: 30, opacity: 0 }, { scrollTrigger: { trigger: '.team-section', start: 'top 85%', once: true }, y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out' });
   }
 
-  private countUp(element: HTMLElement, target: number, suffix: string): void {
-    const duration = 2000;
-    const startTimestamp = performance.now();
-
-    const step = (timestamp: number) => {
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-
-      const current = Math.floor(easeOut * target);
-      element.textContent = current.toLocaleString() + suffix;
-
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      } else {
-        element.textContent = target.toLocaleString() + suffix;
-      }
-    };
-
-    window.requestAnimationFrame(step);
-  }
-
-  ngOnDestroy(): void {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
+  private initCounterAnimations(): void {
+    const counters = this.el.nativeElement.querySelectorAll('.counter');
+    counters.forEach((counter: HTMLElement) => {
+      const targetValue = parseInt(counter.getAttribute('data-target') || '0', 10);
+      const proxy = { val: 0 };
+      gsap.to(proxy, {
+        val: targetValue,
+        duration: 2.5,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: counter, start: 'top 95%', once: true },
+        onUpdate: () => { counter.innerText = Math.ceil(proxy.val).toString(); }
+      });
+    });
   }
 }

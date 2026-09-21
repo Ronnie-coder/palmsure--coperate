@@ -1,0 +1,37 @@
+<section class="testimonials-section section-padding">
+  <div class="container testimonials-container">
+
+    <div class="testimonials-header">
+      <h2 class="section-title">The Palmsure Experience,<br><span>Unfiltered.</span></h2>
+      <p class="subtitle">Real stories from the people and businesses we protect every day.</p>
+
+      <div class="slider-controls">
+        <button class="nav-btn" (click)="nextReview()" aria-label="Next Review">
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3D Card Stack Viewport -->
+    <div class="slider-viewport" (click)="nextReview()">
+      <div
+        *ngFor="let review of reviews; let i = index"
+        class="review-card"
+        [ngClass]="{'active': i === activeIndex, 'inactive': i !== activeIndex}">
+
+        <span class="material-symbols-outlined quote-icon">format_quote</span>
+        <p class="review-text">"{{ review.text }}"</p>
+
+        <div class="reviewer-info">
+          <div class="avatar"><span class="material-symbols-outlined">person</span></div>
+          <div class="meta">
+            <h4>{{ review.name }}</h4>
+            <span>{{ review.role }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

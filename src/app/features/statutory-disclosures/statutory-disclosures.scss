@@ -1,0 +1,111 @@
+@use '../../../assets/scss/variables' as v;
+
+.compliance-page {
+  background-color: v.$background-color;
+  color: v.$text-color;
+  padding: 5rem 1.5rem;
+  min-height: 100vh;
+}
+
+.compliance-container {
+  max-width: 900px;
+  margin: 0 auto;
+
+  .page-header {
+    margin-bottom: 3rem;
+    text-align: center;
+
+    .compliance-logo {
+      height: 60px;
+      width: auto;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      color: v.$primary-color;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .subtitle {
+      color: v.$text-color-light;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+  }
+
+  .legal-card {
+    background: v.$white;
+    border: 1px solid v.$border-color;
+    border-radius: 8px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+
+    &.highlight-card {
+      border-left: 4px solid v.$secondary-color;
+      background: v.$card-background-light;
+    }
+
+    h2 {
+      color: v.$primary-color;
+      font-size: 1.35rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid v.$border-color;
+      padding-bottom: 0.75rem;
+    }
+
+    p {
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      color: v.$text-color;
+    }
+
+    .info-grid, .address-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+
+      strong {
+        display: block;
+        color: v.$text-color-light;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.25rem;
+      }
+
+      p { margin: 0; font-weight: 500; }
+    }
+
+    .info-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .address-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 1.5rem; }
+
+    .partner-list {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+      li { line-height: 1.8; color: v.$text-color; }
+    }
+
+    .contact-list {
+      list-style-type: none;
+      padding-left: 0;
+      li {
+        background: v.$card-background-light;
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 4px;
+        strong { color: v.$primary-color; }
+        a {
+          color: v.$secondary-color;
+          text-decoration: none;
+          font-weight: 500;
+          &:hover { text-decoration: underline; }
+        }
+      }
+    }
+  }
+}

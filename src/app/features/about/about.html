@@ -1,111 +1,124 @@
-<main class="about-container">
+<main class="about-page">
 
-  <!-- HERO -->
+  <!-- 1. HERO SECTION -->
   <section class="hero-section">
-    <div class="content-wrapper">
-      <h1>Our Story</h1>
-      <p class="subtitle">
-        Founded in 2016 by Ranganayi Nyamhute, Palmsure Insurance Brokers has evolved from a specialized niche provider into a comprehensive insurance powerhouse.
-      </p>
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h1>Our Story</h1>
+        <p class="subtitle">Founded in 2016 by Ranganayi Nyamhute, Palmsure Insurance Brokers has evolved from a specialized niche provider into a comprehensive insurance powerhouse.</p>
+      </div>
+      <div class="hero-animation">
+        <dotlottie-player src="https://lottie.host/83d0ea01-d780-4cb0-9df4-06b4d811c92a/6PVxe0Tftc.lottie" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></dotlottie-player>
+      </div>
     </div>
   </section>
 
-  <!-- METRICS & FOUNDER -->
-  <section #metricsSection class="metrics-section">
-    <div class="content-wrapper metrics-grid">
-      <!-- Metric 1 -->
-      <div class="metric-card">
-        <span #metricValue class="metric-value">7+</span>
-        <p class="metric-label">Years of Excellence</p>
+  <!-- 2. GLASSMORPHIC IMPACT PILL -->
+  <section class="impact-section section-padding">
+    <div class="container">
+      <div class="impact-pill">
+        <div class="impact-pill-title">
+          <h2>Palmsure<br><span>Impact.</span></h2>
+        </div>
+        <div class="impact-pill-stats">
+          <div class="stat-item">
+            <div class="stat-value"><span class="stat-number counter" data-target="1500">1500</span><span class="stat-suffix">+</span></div>
+            <span class="stat-label">Active Policies</span>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value"><span class="stat-number counter" data-target="99">99</span><span class="stat-suffix">%</span></div>
+            <span class="stat-label">Claims Success</span>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value"><span class="stat-number counter" data-target="7">7</span><span class="stat-suffix">+</span></div>
+            <span class="stat-label">Years Excellence</span>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Metric 2 -->
-      <div class="metric-card">
-        <span #metricValue class="metric-value">1500+</span>
-        <p class="metric-label">Policies Managed</p>
-      </div>
-
-      <!-- Founder Card (Interactive) -->
-      <div class="metric-card founder-card">
-        <div class="founder-bg"></div>
+  <!-- 3. FOUNDER SECTION -->
+  <section class="founder-section section-padding">
+    <div class="container">
+      <div class="founder-card">
+        <div class="founder-bg parallax-bg" style="background-image: url('assets/images/founder.jpg');"></div>
         <div class="founder-overlay"></div>
         <div class="founder-content">
           <span class="founder-role">Founder & CEO</span>
-          <span class="founder-name">Ranganayi Nyamhute</span>
+          <h3 class="founder-name">Ranganayi Nyamhute</h3>
+          <p class="founder-bio">Leading Palmsure with a vision for unparalleled client-centric insurance solutions. Our goal has always been to build trust through transparency and unwavering support for our communities.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MISSION & VISION -->
+  <!-- 4. MISSION & VISION -->
   <section class="mission-vision-section">
-    <div class="content-wrapper mission-vision-grid">
-      <div class="vision-card">
-        <div class="icon-circle">
-          <span class="material-symbols-outlined">flag</span>
-        </div>
-        <h2>Our Mission</h2>
-        <p>To be the most trusted and innovative insurance partner, empowering individuals and businesses to safeguard their future with tailored solutions and unparalleled service.</p>
-      </div>
-      <div class="vision-card">
-        <div class="icon-circle">
-          <span class="material-symbols-outlined">visibility</span>
-        </div>
-        <h2>Our Vision</h2>
-        <p>To be a leader in the insurance industry, recognized for our integrity, client-centric approach, and unwavering commitment to empowering communities.</p>
-      </div>
+    <div class="vision-card mission-block">
+      <div class="icon-circle"><span class="material-symbols-outlined">flag</span></div>
+      <h2>Our Mission</h2>
+      <p>To be the most trusted and innovative insurance partner, empowering individuals and businesses to safeguard their future with tailored solutions and unparalleled service.</p>
+    </div>
+    <div class="vision-card vision-block">
+      <div class="icon-circle"><span class="material-symbols-outlined">visibility</span></div>
+      <h2>Our Vision</h2>
+      <p>To be a leader in the insurance industry, recognized for our integrity, client-centric approach, and unwavering commitment to empowering communities.</p>
     </div>
   </section>
 
-  <!-- TEAM -->
-  <section class="team-section">
-    <div class="content-wrapper">
-      <h2>Meet Our Team</h2>
-      <p class="section-subtitle">The experts dedicated to your peace of mind.</p>
-
+  <!-- 5. TEAM -->
+  <section class="team-section section-padding">
+    <div class="container">
+      <h2 class="section-title">Meet Our Representatives</h2>
+      <p class="section-subtitle">Our fully compliant and registered representatives, dedicated to your peace of mind.</p>
       <div class="team-grid">
-        <!-- Member 1 -->
         <div class="team-member-card">
-          <div class="team-member-icon-wrapper icon-bg-1">
-            <span class="material-symbols-outlined">person</span>
-          </div>
-          <p class="member-name">Ronnie</p>
+          <div class="team-member-icon-wrapper"><span class="material-symbols-outlined">person</span></div>
+          <p class="member-name">Ronnie Nyamhute</p>
+          <p class="member-role">Representative</p>
           <a href="mailto:ronnie@palmsure.co.za" class="member-email">ronnie@palmsure.co.za</a>
         </div>
-
-        <!-- Member 2 -->
         <div class="team-member-card">
-          <div class="team-member-icon-wrapper icon-bg-3">
-            <span class="material-symbols-outlined">face_3</span>
-          </div>
-          <p class="member-name">Vee</p>
+          <div class="team-member-icon-wrapper"><span class="material-symbols-outlined">face_3</span></div>
+          <p class="member-name">Valerie Mmolotsi</p>
+          <p class="member-role">Representative</p>
           <a href="mailto:valerie@palmsure.co.za" class="member-email">valerie@palmsure.co.za</a>
         </div>
-
-        <!-- Member 3 -->
         <div class="team-member-card">
-          <div class="team-member-icon-wrapper icon-bg-4">
-            <span class="material-symbols-outlined">face_6</span>
-          </div>
-          <p class="member-name">Zwai</p>
+          <div class="team-member-icon-wrapper"><span class="material-symbols-outlined">face_6</span></div>
+          <p class="member-name">Zwai Stenge</p>
+          <p class="member-role">Representative</p>
           <a href="mailto:zwai@palmsure.co.za" class="member-email">zwai@palmsure.co.za</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PARTNERS -->
-  <section class="partners-section">
-    <div class="content-wrapper">
-      <h2>Associations & Partners</h2>
-      <div class="logo-grid">
-        <img src="assets/images/ctu-logo.png" alt="CTU" class="partner-logo">
-        <img src="assets/images/vum-logo.png" alt="VUM" class="partner-logo">
-        <img src="assets/images/sa-taxi-logo.png" alt="SA Taxi" class="partner-logo">
-        <img src="assets/images/1st-for-women-logo.png" alt="1st for Women" class="partner-logo">
-        <img src="assets/images/auto-and-general-logo.png" alt="Auto & General" class="partner-logo">
-        <img src="assets/images/momentum-logo.png" alt="Momentum" class="partner-logo">
-        <img src="assets/images/felix-body-works-logo.png" alt="Felix Body Works" class="partner-logo">
+  <!-- 6. INFINITE TRUST MARQUEE -->
+  <section class="trust-strip">
+    <div class="container">
+      <p class="trust-label">Associations & Partners</p>
+    </div>
+    <div class="marquee-wrapper">
+      <div class="marquee-track">
+        <!-- Set 1 -->
+        <img src="assets/images/ctu-logo.png" alt="CTU" loading="lazy">
+        <img src="assets/images/vum-logo.png" alt="VUM" loading="lazy">
+        <img src="assets/images/sa-taxi-logo.png" alt="SA Taxi" loading="lazy">
+        <img src="assets/images/1st-for-women-logo.png" alt="1st for Women" loading="lazy">
+        <img src="assets/images/auto-and-general-logo.png" alt="Auto & General" loading="lazy">
+        <img src="assets/images/momentum-logo.png" alt="Momentum" loading="lazy">
+        <img src="assets/images/felix-body-works-logo.png" alt="Felix Body Works" loading="lazy">
+
+        <!-- Set 2 (Duplicated for continuous infinite scroll) -->
+        <img src="assets/images/ctu-logo.png" alt="CTU" loading="lazy">
+        <img src="assets/images/vum-logo.png" alt="VUM" loading="lazy">
+        <img src="assets/images/sa-taxi-logo.png" alt="SA Taxi" loading="lazy">
+        <img src="assets/images/1st-for-women-logo.png" alt="1st for Women" loading="lazy">
+        <img src="assets/images/auto-and-general-logo.png" alt="Auto & General" loading="lazy">
+        <img src="assets/images/momentum-logo.png" alt="Momentum" loading="lazy">
+        <img src="assets/images/felix-body-works-logo.png" alt="Felix Body Works" loading="lazy">
       </div>
     </div>
   </section>
