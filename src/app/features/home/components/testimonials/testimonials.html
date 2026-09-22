@@ -19,11 +19,20 @@
         class="review-card"
         [ngClass]="{'active': i === activeIndex, 'inactive': i !== activeIndex}">
 
+        <!-- Card Header with Emojis -->
+        <div class="card-emoji-header">
+          <span class="star-rating">{{ review.ratingEmoji || '⭐⭐⭐⭐⭐' }}</span>
+          <span class="badge-emoji">{{ review.badgeEmoji || '✨' }}</span>
+        </div>
+
         <span class="material-symbols-outlined quote-icon">format_quote</span>
         <p class="review-text">"{{ review.text }}"</p>
 
         <div class="reviewer-info">
-          <div class="avatar"><span class="material-symbols-outlined">person</span></div>
+          <div class="avatar">
+            <img *ngIf="review.image" [src]="review.image" [alt]="review.name" class="avatar-img" />
+            <span *ngIf="!review.image" class="material-symbols-outlined">person</span>
+          </div>
           <div class="meta">
             <h4>{{ review.name }}</h4>
             <span>{{ review.role }}</span>
