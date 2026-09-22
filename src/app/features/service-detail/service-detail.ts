@@ -39,48 +39,48 @@ export class ServiceDetail implements OnInit {
     {
       id: 'property',
       title: 'Property Insurance',
-      description: 'Secure your most valuable asset. Our comprehensive property insurance protects your home and belongings from unforeseen events.',
+      description: 'Your property is your most valuable asset. We source and negotiate comprehensive building and contents cover from top underwriters to ensure total peace of mind',
       keyFeatures: [
-        { text: 'Coverage against fire, theft, and natural disasters', icon: 'local_fire_department' },
-        { text: 'Liability protection for accidents on your property', icon: 'gavel' },
-        { text: 'Flexible policy options to suit your needs', icon: 'tune' },
-        { text: 'Optional coverage for high-value items', icon: 'diamond' }
+        { text: 'Negotiated Cover for Fire, Theft & Natural Disasters', icon: 'local_fire_department' },
+        { text: 'Comprehensive Personal Liability Protection', icon: 'gavel' },
+        { text: 'Flexible, Market-Compared Policy Structures', icon: 'tune' },
+        { text: 'Specialized All-Risk Cover for High-Value Assets', icon: 'diamond' }
       ],
       imageUrl: 'assets/images/service-property.jpg'
     },
     {
       id: 'vehicle',
       title: 'Vehicle Insurance',
-      description: 'On the road, the unexpected can happen. Our vehicle insurance provides robust protection for your car, truck, or motorcycle.',
+      description: 'Whether it is your daily drive or a commercial fleet, we compare quotes across the market to secure the most competitive, robust motor cover available.',
       keyFeatures: [
-        { text: 'Comprehensive, third-party, and liability-only options', icon: 'policy' },
-        { text: 'Roadside assistance and towing services', icon: 'car_crash' },
-        { text: 'Coverage for personal and commercial vehicles', icon: 'local_shipping' },
-        { text: 'Fast and fair claims processing', icon: 'bolt' }
+        { text: 'Market-Compared Comprehensive & Liability Options', icon: 'policy' },
+        { text: 'Integrated Roadside Assistance & Towing Benefits', icon: 'car_crash' },
+        { text: 'Tailored Cover for Personal & Commercial Vehicles', icon: 'local_shipping' },
+        { text: 'Dedicated Claims Advocacy & Expedited Resolutions', icon: 'bolt' }
       ],
       imageUrl: 'assets/images/service-vehicle.jpg'
     },
     {
       id: 'business',
       title: 'Business Insurance',
-      description: 'Protect the business you’ve worked so hard to build. We offer tailored insurance solutions that cover your commercial property, liability, and employees.',
+      description: 'Focus on running your business while we navigate the commercial market. We negotiate custom risk portfolios to protect your assets, liabilities, and bottom line.',
       keyFeatures: [
-        { text: 'Commercial property and asset protection', icon: 'domain' },
-        { text: 'Public and employer’s liability coverage', icon: 'groups' },
-        { text: 'Business interruption insurance', icon: 'hourglass_disabled' },
-        { text: 'Customized packages for various industries', icon: 'category' }
+        { text: 'Tailored Commercial Property & Asset Cover', icon: 'domain' },
+        { text: 'Specialized Public & Employer Liability', icon: 'groups' },
+        { text: 'Strategic Business Interruption Solutions', icon: 'hourglass_disabled' },
+        { text: 'Industry-Specific Risk Portfolios', icon: 'category' }
       ],
       imageUrl: 'assets/images/service-business.jpg'
     },
     {
       id: 'personal',
       title: 'Personal Insurance',
-      description: 'Safeguard your future and protect your loved ones with our personal insurance solutions. From life cover to income protection.',
+      description: 'We analyze your unique lifestyle to source and structure the perfect personal risk portfolio, expertly negotiated to protect your loved ones.',
       keyFeatures: [
-        { text: 'Life and Disability Cover', icon: 'health_and_safety' },
-        { text: 'Comprehensive Income Protection Plans', icon: 'account_balance_wallet' },
-        { text: 'Critical Illness Insurance', icon: 'emergency' },
-        { text: 'Retirement and Long-Term Savings Solutions', icon: 'savings' }
+        { text: 'Market-Leading Life & Disability Cover', icon: 'health_and_safety' },
+        { text: 'Tailored Income Protection Plans', icon: 'account_balance_wallet' },
+        { text: 'Specialized Critical Illness Cover', icon: 'emergency' },
+        { text: 'Strategic Retirement & Savings Solutions', icon: 'savings' }
       ],
       imageUrl: 'assets/images/service-personal.jpg'
     }

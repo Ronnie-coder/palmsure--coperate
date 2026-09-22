@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, PLATFORM_ID, inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, PLATFORM_ID, inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -17,8 +17,11 @@ interface Review {
   styleUrls: ['./testimonials.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class Testimonials implements AfterViewInit {
+export class Testimonials implements AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
+
+  // Store the animation instance so we can kill it later
+  private scrollAnimation: gsap.core.Tween | undefined;
 
   activeIndex = 0;
 
@@ -44,10 +47,30 @@ export class Testimonials implements AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       gsap.registerPlugin(ScrollTrigger);
 
-      gsap.fromTo('.testimonials-section',
+      // Assign the animation to our variable
+      this.scrollAnimation = gsap.fromTo('.testimonials-section',
         { y: 50, opacity: 0 },
-        { scrollTrigger: { trigger: '.testimonials-section', start: 'top 80%', once: true }, y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+        {
+          scrollTrigger: {
+            trigger: '.testimonials-section',
+            start: 'top 80%',
+            once: true
+          },
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out'
+        }
       );
+    }
+  }
+
+  // Angular calls this right before leaving the page
+  ngOnDestroy(): void {
+    if (isPlatformBrowser(this.platformId) && this.scrollAnimation) {
+      // Kill the scroll trigger and the animation to prevent routing conflicts
+      this.scrollAnimation.scrollTrigger?.kill();
+      this.scrollAnimation.kill();
     }
   }
 
