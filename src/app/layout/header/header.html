@@ -45,7 +45,7 @@
           <li class="mobile-only">
             <div class="mobile-actions">
               <a routerLink="/quote" class="btn btn-primary" (click)="closeMobileMenu()">Get a Quote</a>
-              <a href="https://berrysure.co.za/login" target="_blank" class="btn btn-secondary" (click)="closeMobileMenu()">Client Portal</a>
+              <a href="https://berrysure.co.za/client/login" target="_blank" class="btn btn-secondary" (click)="closeMobileMenu()">Client Portal</a>
             </div>
           </li>
         </ul>
@@ -53,8 +53,8 @@
     </div>
 
     <div class="desktop-actions">
-      <a href="https://berrysure.co.za/login" target="_blank" class="link-login" [class.nav-hidden]="isScrolled">
-        <span class="material-symbols-outlined">login</span> Portal
+      <a href="https://berrysure.co.za/client/login" target="_blank" class="link-login" [class.nav-hidden]="isScrolled">
+        <span class="material-symbols-outlined">person</span> Client Portal
       </a>
       <a routerLink="/quote" class="btn btn-primary cta-btn">Get Started</a>
     </div>
